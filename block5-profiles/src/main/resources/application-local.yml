@@ -1,0 +1,4 @@
+# spring.profiles.active=local
+bd:
+  url:
+    localhost:5432
