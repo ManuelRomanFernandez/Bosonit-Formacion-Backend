@@ -1,0 +1,3 @@
+greeting=: Hello world! (yaml)
+my:
+  number: 1001
