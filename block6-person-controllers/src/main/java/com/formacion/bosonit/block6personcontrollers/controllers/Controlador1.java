@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/controlador1")
 public class Controlador1 {
 
+    @Autowired
     private PersonaService personaService;
+    @Autowired
     private CiudadService ciudadService;
 
-    @Autowired
     public Controlador1(PersonaService personaService, CiudadService ciudadService) {
         this.personaService = personaService;
         this.ciudadService = ciudadService;

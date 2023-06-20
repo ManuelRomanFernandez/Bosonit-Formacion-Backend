@@ -12,10 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/controlador2")
 public class Controlador2 {
+    @Autowired
     private PersonaService personaService;
+    @Autowired
     private CiudadService ciudadService;
 
-    @Autowired
     public Controlador2(PersonaService personaService, CiudadService ciudadService) {
         this.personaService = personaService;
         this.ciudadService = ciudadService;
