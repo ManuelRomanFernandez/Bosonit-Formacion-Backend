@@ -2,6 +2,7 @@ package com.formacion.bosonit.block7crudvalidation.persona.domain;
 
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaInputDto;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
+import com.formacion.bosonit.block7crudvalidation.persona.exception.UnprocessableEntityException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -28,29 +29,29 @@ public class Persona {
     private String imagen;
     private Date termination_date;
 
-    public Persona(PersonaInputDto personaInputDto) throws Exception {
+    public Persona(PersonaInputDto personaInputDto) throws UnprocessableEntityException {
         if(personaInputDto.getUsuario() == null){
-            throw new Exception("Usuario no puede ser nulo");
+            throw new UnprocessableEntityException("Usuario no puede ser nulo");
         }
         else if(personaInputDto.getUsuario().length() > 10){
-            throw new Exception("Longitud de usuario no puede ser superior a 10 caracteres");
+            throw new UnprocessableEntityException("Longitud de usuario no puede ser superior a 10 caracteres");
         }
         else if(personaInputDto.getUsuario().length() < 5){
-            throw new Exception("Longitud de usuario no puede ser inferior a 5 caracteres");
+            throw new UnprocessableEntityException("Longitud de usuario no puede ser inferior a 5 caracteres");
         }
         else{
             this.usuario = personaInputDto.getUsuario();
         }
 
         if(personaInputDto.getPassword() == null){
-            throw new Exception("Password no puede ser nulo");
+            throw new UnprocessableEntityException("Password no puede ser nulo");
         }
         else{
             this.password = personaInputDto.getPassword();
         }
 
         if(personaInputDto.getName() == null){
-            throw new Exception("Name no puede ser nulo");
+            throw new UnprocessableEntityException("Name no puede ser nulo");
         }
         else{
             this.name = personaInputDto.getName();
@@ -59,35 +60,35 @@ public class Persona {
         this.surname = personaInputDto.getSurname();
 
         if(personaInputDto.getCompany_email() == null){
-            throw new Exception("Company_Email no puede ser nulo");
+            throw new UnprocessableEntityException("Company_Email no puede ser nulo");
         }
         else{
             this.company_email = personaInputDto.getCompany_email();
         }
 
         if(personaInputDto.getPersonal_email() == null){
-            throw new Exception("Personal_Email no puede ser nulo");
+            throw new UnprocessableEntityException("Personal_Email no puede ser nulo");
         }
         else{
             this.personal_email = personaInputDto.getPersonal_email();
         }
 
         if(personaInputDto.getCity() == null){
-            throw new Exception("City no puede ser nulo");
+            throw new UnprocessableEntityException("City no puede ser nulo");
         }
         else{
             this.city = personaInputDto.getCity();
         }
 
         if(personaInputDto.getActive() == null){
-            throw new Exception("Active no puede ser nulo");
+            throw new UnprocessableEntityException("Active no puede ser nulo");
         }
         else{
             this.active = personaInputDto.getActive();
         }
 
         if(personaInputDto.getCreated_date() == null){
-            throw new Exception("Created_date no puede ser nulo");
+            throw new UnprocessableEntityException("Created_date no puede ser nulo");
         }
         else{
             this.created_date = personaInputDto.getCreated_date();

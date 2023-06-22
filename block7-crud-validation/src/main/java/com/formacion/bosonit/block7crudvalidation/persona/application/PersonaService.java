@@ -8,4 +8,6 @@ public interface PersonaService {
     Iterable<PersonaOutputDto> getPersonaByUsuario(Integer pageNumber, Integer pageSize, String usuario);
     Iterable<PersonaOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize);
     PersonaOutputDto addPersona(PersonaInputDto persona) throws Exception;
+    PersonaOutputDto updatePersona(PersonaInputDto persona);
+    void deletePersonaById(Integer id);
 }

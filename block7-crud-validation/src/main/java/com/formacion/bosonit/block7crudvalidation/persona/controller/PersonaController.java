@@ -17,11 +17,7 @@ public class PersonaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonaOutputDto> getPersonaById(@PathVariable Integer id){
-        try{
-            return ResponseEntity.ok().body(personaService.getPersonaById(id));
-        } catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(personaService.getPersonaById(id));
     }
 
     @GetMapping("/name/{name}")
@@ -46,4 +42,18 @@ public class PersonaController {
         URI location = URI.create("/persona");
         return ResponseEntity.created(location).body(personaService.addPersona(persona));
     }
+
+    @PutMapping
+    public ResponseEntity<PersonaOutputDto> updateStudent(@RequestBody PersonaInputDto personaInputDto) {
+        personaService.getPersonaById(personaInputDto.getId_persona());
+        return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto));
+    }
+
+
+    @DeleteMapping
+    public ResponseEntity<String> deletePersonaById(@RequestParam int persona_id) {
+        personaService.deletePersonaById(persona_id);
+        return ResponseEntity.ok().body("La persona con id: " + persona_id + " ha sido eliminada");
+    }
+
 }
