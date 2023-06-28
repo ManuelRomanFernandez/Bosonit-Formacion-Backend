@@ -1,4 +1,4 @@
-package com.formacion.bosonit.block7crudvalidation.persona.exception;
+package com.formacion.bosonit.block7crudvalidation.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

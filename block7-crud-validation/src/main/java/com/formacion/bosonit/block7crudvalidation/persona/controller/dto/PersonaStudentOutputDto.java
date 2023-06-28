@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonaOutputDto {
+public class PersonaStudentOutputDto {
     Integer id_persona;
     String usuario;
     String password;
@@ -23,5 +23,8 @@ public class PersonaOutputDto {
     String imagen;
     Date termination_date;
     String id_student;
-    String id_teacher;
+    Integer num_hours_week;
+    String comments;
+    String id_student_teacher;
+    String branch;
 }

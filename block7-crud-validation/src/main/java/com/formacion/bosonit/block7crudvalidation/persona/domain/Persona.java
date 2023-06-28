@@ -2,10 +2,16 @@ package com.formacion.bosonit.block7crudvalidation.persona.domain;
 
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaInputDto;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
-import com.formacion.bosonit.block7crudvalidation.persona.exception.UnprocessableEntityException;
+import com.formacion.bosonit.block7crudvalidation.exception.UnprocessableEntityException;
+import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaTeacherOutputDto;
+import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaStudentOutputDto;
+import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
+import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -13,23 +19,39 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "persona")
+@Getter
+@Setter
 public class Persona {
     @Id
     @GeneratedValue
     private Integer id_persona;
     private String usuario;
     private String password;
+    @Column(name = "nombre")
     private String name;
+    @Column(name = "apellido")
     private String surname;
+    @Column(name = "email_corporativo")
     private String company_email;
+    @Column(name = "email_personal")
     private String personal_email;
+    @Column(name = "ciudad")
     private String city;
+    @Column(name = "activo")
     private Boolean active;
     private Date created_date;
     private String imagen;
     private Date termination_date;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "id_student")
+    private Student student;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "id_teacher")
+    private Teacher teacher;
 
     public Persona(PersonaInputDto personaInputDto) throws UnprocessableEntityException {
+        this.id_persona = personaInputDto.getId_persona();
+
         if(personaInputDto.getUsuario() == null){
             throw new UnprocessableEntityException("Usuario no puede ser nulo");
         }
@@ -101,114 +123,62 @@ public class Persona {
 
     public PersonaOutputDto personaToPersonaOutputDto(){
         return new PersonaOutputDto(
-            this.id_persona,
-            this.usuario,
-            this.password,
-            this.name,
-            this.surname,
-            this.company_email,
-            this.personal_email,
-            this.city,
-            this.active,
-            this.created_date,
-            this.imagen,
-            this.termination_date
+                this.id_persona,
+                this.usuario,
+                this.password,
+                this.name,
+                this.surname,
+                this.company_email,
+                this.personal_email,
+                this.city,
+                this.active,
+                this.created_date,
+                this.imagen,
+                this.termination_date,
+                this.student != null ? this.student.getId_student() : null,
+                this.teacher != null ? this.teacher.getId_teacher() : null
         );
     }
 
-    public Integer getId_persona() {
-        return id_persona;
+    public PersonaStudentOutputDto personaToPersonaStudentOutputDto(){
+        return new PersonaStudentOutputDto(
+                this.id_persona,
+                this.usuario,
+                this.password,
+                this.name,
+                this.surname,
+                this.company_email,
+                this.personal_email,
+                this.city,
+                this.active,
+                this.created_date,
+                this.imagen,
+                this.termination_date,
+                this.student.getId_student(),
+                this.student.getNum_hours_week(),
+                this.student.getComments(),
+                this.student.getTeacher() != null ? this.student.getTeacher().getId_teacher() : null,
+                this.student.getBranch()
+        );
     }
 
-    public void setId_persona(Integer id_persona) {
-        this.id_persona = id_persona;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getCompany_email() {
-        return company_email;
-    }
-
-    public void setCompany_email(String company_email) {
-        this.company_email = company_email;
-    }
-
-    public String getPersonal_email() {
-        return personal_email;
-    }
-
-    public void setPersonal_email(String personal_email) {
-        this.personal_email = personal_email;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Date getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public Date getTermination_date() {
-        return termination_date;
-    }
-
-    public void setTermination_date(Date termination_date) {
-        this.termination_date = termination_date;
+    public PersonaTeacherOutputDto personaToPersonaTeacherOutputDto(){
+        return new PersonaTeacherOutputDto(
+                this.id_persona,
+                this.usuario,
+                this.password,
+                this.name,
+                this.surname,
+                this.company_email,
+                this.personal_email,
+                this.city,
+                this.active,
+                this.created_date,
+                this.imagen,
+                this.termination_date,
+                this.teacher.getId_teacher(),
+                this.teacher.getComments(),
+                this.teacher.getBranch()
+        );
     }
 }

@@ -1,6 +1,5 @@
 package com.formacion.bosonit.block7crudvalidation.persona.controller.dto;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonaInputDto {
-    @Id
     Integer id_persona;
     String usuario;
     String password;

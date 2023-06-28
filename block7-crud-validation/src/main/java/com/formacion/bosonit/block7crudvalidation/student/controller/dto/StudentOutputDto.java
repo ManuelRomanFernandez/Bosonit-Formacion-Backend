@@ -1,4 +1,4 @@
-package com.formacion.bosonit.block7crudvalidation.persona.controller.dto;
+package com.formacion.bosonit.block7crudvalidation.student.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonaOutputDto {
+public class StudentOutputDto {
+    String id_student;
     Integer id_persona;
     String usuario;
     String password;
@@ -22,6 +23,8 @@ public class PersonaOutputDto {
     Date created_date;
     String imagen;
     Date termination_date;
-    String id_student;
+    Integer num_hours_week;
+    String comments;
     String id_teacher;
+    String branch;
 }

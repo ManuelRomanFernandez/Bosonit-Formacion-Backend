@@ -16,25 +16,45 @@ public class PersonaController {
     PersonaServiceImpl personaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonaOutputDto> getPersonaById(@PathVariable Integer id){
-        return ResponseEntity.ok().body(personaService.getPersonaById(id));
+    public ResponseEntity getPersonaById(
+            @PathVariable Integer id,
+            @RequestParam(defaultValue = "simple", required = false) String outputType){
+        PersonaOutputDto persona = personaService.getPersonaById(id);
+
+        if(outputType.equalsIgnoreCase("full")){
+            return persona.getId_student() != null
+                    ? ResponseEntity.ok().body(personaService.getPersonaStudentById(id))
+                    : ResponseEntity.ok().body(personaService.getPersonaTeacherById(id));
+        } else {
+            return ResponseEntity.ok().body(persona);
+        }
     }
 
     @GetMapping("/name/{name}")
     public ResponseEntity getPersonaByName(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
+            @RequestParam(defaultValue = "simple", required = false) String outputType,
             @PathVariable String name)
     {
-        return ResponseEntity.ok().body(personaService.getPersonaByUsuario(pageNumber, pageSize, name));
+        if(outputType.equalsIgnoreCase("full")){
+            return ResponseEntity.ok().body(personaService.getFullPersonaStudentByUsuario(pageNumber, pageSize, name));
+        } else {
+            return ResponseEntity.ok().body(personaService.getPersonaByUsuario(pageNumber, pageSize, name));
+        }
+
     }
 
     @GetMapping
     public ResponseEntity getAllPersonas(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(defaultValue = "4", required = false) int pageSize
+            @RequestParam(defaultValue = "4", required = false) int pageSize,
+            @RequestParam(defaultValue = "simple", required = false) String outputType
     ){
-        return ResponseEntity.ok().body(personaService.getAllPersonas(pageNumber,pageSize));
+        return outputType.equalsIgnoreCase("full")
+                ? ResponseEntity.ok().body(personaService.getAllFullPersonas(pageNumber,pageSize))
+                : ResponseEntity.ok().body(personaService.getAllPersonas(pageNumber,pageSize));
+
     }
 
     @PostMapping
@@ -43,17 +63,17 @@ public class PersonaController {
         return ResponseEntity.created(location).body(personaService.addPersona(persona));
     }
 
-    @PutMapping
-    public ResponseEntity<PersonaOutputDto> updateStudent(@RequestBody PersonaInputDto personaInputDto) {
-        personaService.getPersonaById(personaInputDto.getId_persona());
-        return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto));
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonaOutputDto> updateStudent(@RequestBody PersonaInputDto personaInputDto, @PathVariable Integer id) {
+        personaService.getPersonaById(id);
+        return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto, id));
     }
 
 
     @DeleteMapping
-    public ResponseEntity<String> deletePersonaById(@RequestParam int persona_id) {
-        personaService.deletePersonaById(persona_id);
-        return ResponseEntity.ok().body("La persona con id: " + persona_id + " ha sido eliminada");
+    public ResponseEntity<String> deletePersonaById(@RequestParam int id_persona) {
+        personaService.deletePersonaById(id_persona);
+        return ResponseEntity.ok().body("La persona con id: " + id_persona + " ha sido eliminada");
     }
 
 }
