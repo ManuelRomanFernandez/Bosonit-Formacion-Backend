@@ -1,10 +1,10 @@
 package com.formacion.bosonit.block7crudvalidation;
 
-import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
-import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@EnableFeignClients
 @SpringBootApplication
 public class Block7CrudValidationApplication {
 

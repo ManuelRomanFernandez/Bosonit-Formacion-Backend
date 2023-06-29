@@ -13,6 +13,8 @@ import java.net.URI;
 @RequestMapping("/persona")
 public class PersonaController {
     @Autowired
+    PersonaFeign personaFeign;
+    @Autowired
     PersonaServiceImpl personaService;
 
     @GetMapping("/{id}")
@@ -55,6 +57,14 @@ public class PersonaController {
                 ? ResponseEntity.ok().body(personaService.getAllFullPersonas(pageNumber,pageSize))
                 : ResponseEntity.ok().body(personaService.getAllPersonas(pageNumber,pageSize));
 
+    }
+
+    @GetMapping("/profesor/{id_teacher}")
+    public ResponseEntity<?> getFeignTeacherById(
+            @PathVariable String id_teacher,
+            @RequestParam(defaultValue = "simple", required = false) String outputType
+    ){
+        return personaFeign.getTeacherById(id_teacher, outputType);
     }
 
     @PostMapping
