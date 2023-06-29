@@ -21,7 +21,7 @@ public class TeacherOutputDto {
     Boolean active;
     Date created_date;
     String imagen;
-    Date terminated_date;
+    Date termination_date;
     String comments;
     String branch;
 }

@@ -2,7 +2,7 @@ package com.formacion.bosonit.block7crudvalidation.student.application;
 
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
-import com.formacion.bosonit.block7crudvalidation.student_subject.repository.StudentSubjectRepository;
+import com.formacion.bosonit.block7crudvalidation.student.controller.mapper.StudentMapper;
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.teacher.respository.TeacherRepository;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentInputDto;
@@ -10,6 +10,7 @@ import com.formacion.bosonit.block7crudvalidation.student.controller.dto.Student
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,29 +19,31 @@ import java.util.Objects;
 
 @Service
 public class StudentServiceImpl implements StudentService{
+    StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
     @Autowired
     StudentRepository studentRepository;
     @Autowired
     PersonaRepository personaRepository;
     @Autowired
     TeacherRepository teacherRepository;
-    @Autowired
-    StudentSubjectRepository studentSubjectRepository;
 
     @Override
     public StudentOutputDto getFullStudentById(String id_student) {
-        return studentRepository.findAll()
-                .stream()
-                .filter(e -> e.getId_student().equals(id_student))
-                .findFirst().orElseThrow().studentToStudentOutputDto();
+        return mapper.studentToStudentOutputDto(
+                studentRepository.findAll()
+                        .stream()
+                        .filter(e -> e.getId_student().equals(id_student))
+                        .findFirst()
+                        .orElseThrow());
     }
 
     @Override
     public StudentSimpleOutputDto getSimpleStudentById(String id_student) {
-        return studentRepository.findAll()
-                .stream()
-                .filter(e -> e.getId_student().equals(id_student))
-                .findFirst().orElseThrow().studentToStudentSimpleOutputDto();
+        return mapper.studentToStudentSimpleOutputDto(
+                studentRepository.findAll()
+                        .stream()
+                        .filter(e -> e.getId_student().equals(id_student))
+                        .findFirst().orElseThrow());
     }
 
     @Override
@@ -49,7 +52,7 @@ public class StudentServiceImpl implements StudentService{
         return studentRepository.findAll(pageRequest)
                 .getContent()
                 .stream()
-                .map(Student::studentToStudentOutputDto)
+                .map(student -> mapper.studentToStudentOutputDto(student))
                 .toList();
     }
 
@@ -59,14 +62,14 @@ public class StudentServiceImpl implements StudentService{
         return studentRepository.findAll(pageRequest)
                 .getContent()
                 .stream()
-                .map(Student::studentToStudentSimpleOutputDto)
+                .map(student -> mapper.studentToStudentSimpleOutputDto(student))
                 .toList();
     }
 
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentInputDto) {
         Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
-        Student student = new Student(studentInputDto);
+        Student student = mapper.studentInputDtoToTeacher(studentInputDto);
 
         persona.setStudent(student);
         student.setPersona(persona);
@@ -78,7 +81,7 @@ public class StudentServiceImpl implements StudentService{
             student.setTeacher(teacher);
         }
 
-        return studentRepository.save(student).studentToStudentOutputDto();
+        return mapper.studentToStudentOutputDto(studentRepository.save(student));
     }
 
     @Override
@@ -91,20 +94,19 @@ public class StudentServiceImpl implements StudentService{
 
         currentStudent.setNum_hours_week(studentInputDto.getNum_hours_week());
 
-        if(studentInputDto.getComments() != null)
+        if(studentInputDto.getComments() != null){
             currentStudent.setComments(studentInputDto.getComments());
+        }
 
         currentStudent.setBranch(studentInputDto.getBranch());
 
-        if(studentInputDto.getId_persona() != null){
-            if(!Objects.equals(currentStudent.getPersona().getId_persona(), studentInputDto.getId_persona())){
-                Persona oldPersona = personaRepository.findById(currentStudent.getPersona().getId_persona()).orElseThrow();
-                Persona updatedPersona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
+        if(studentInputDto.getId_persona() != null && !Objects.equals(currentStudent.getPersona().getId_persona(), studentInputDto.getId_persona())){
+            Persona oldPersona = personaRepository.findById(currentStudent.getPersona().getId_persona()).orElseThrow();
+            Persona updatedPersona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
 
-                oldPersona.setStudent(null);
-                updatedPersona.setStudent(currentStudent);
-                currentStudent.setPersona(updatedPersona);
-            }
+            oldPersona.setStudent(null);
+            updatedPersona.setStudent(currentStudent);
+            currentStudent.setPersona(updatedPersona);
         }
 
         if(studentInputDto.getId_teacher() != null){
@@ -124,8 +126,7 @@ public class StudentServiceImpl implements StudentService{
             currentStudent.setTeacher(updatedTeacher);
         }
 
-        return studentRepository.save(currentStudent)
-                .studentToStudentSimpleOutputDto();
+        return mapper.studentToStudentSimpleOutputDto(studentRepository.save(currentStudent));
     }
 
     @Override
@@ -136,7 +137,9 @@ public class StudentServiceImpl implements StudentService{
                 .findFirst()
                 .orElseThrow();
 
-        personaRepository.findById(deletedStudent.getPersona().getId_persona())
+        Integer id_persona = deletedStudent.getPersona().getId_persona();
+
+        personaRepository.findById(id_persona)
                 .orElseThrow()
                 .setStudent(null);
 
@@ -145,11 +148,6 @@ public class StudentServiceImpl implements StudentService{
                     .orElseThrow()
                     .getStudents()
                     .remove(deletedStudent);
-
-        if(deletedStudent.getStudentSubjects().toArray().length > 0)
-            studentSubjectRepository.findAll()
-                    .stream()
-                    .map(e -> e.getStudent().getId_student());
 
         studentRepository.delete(deletedStudent);
     }

@@ -4,17 +4,20 @@ import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.Persona
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaTeacherOutputDto;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaStudentOutputDto;
+import com.formacion.bosonit.block7crudvalidation.persona.controller.mapper.PersonaMapper;
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
 import com.formacion.bosonit.block7crudvalidation.teacher.respository.TeacherRepository;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonaServiceImpl implements PersonaService {
+    PersonaMapper mapper = Mappers.getMapper(PersonaMapper.class);
     @Autowired
     PersonaRepository personaRepository;
     @Autowired
@@ -24,41 +27,47 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public PersonaOutputDto getPersonaById(Integer id) {
-        return personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")).personaToPersonaOutputDto();
+        return mapper.personaToPersonaOutDto(personaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")));
     }
 
     @Override
     public PersonaStudentOutputDto getPersonaStudentById(Integer id){
-        return personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")).personaToPersonaStudentOutputDto();
+        return mapper.personaToPersonaStudentOutPut(personaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")));
     }
 
     @Override
     public PersonaTeacherOutputDto getPersonaTeacherById(Integer id){
-        return personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")).personaToPersonaTeacherOutputDto();
+        return mapper.personaToPersonaTeacherOutPut(personaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")));
     }
 
     @Override
     public Iterable<PersonaOutputDto> getPersonaByUsuario(Integer pageNumber, Integer pageSize, String usuario) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
                 .filter(persona -> persona.getUsuario().equals(usuario))
-                .map(Persona::personaToPersonaOutputDto).toList();
+                .map(persona -> mapper.personaToPersonaOutDto(persona))
+                .toList();
     }
 
     @Override
-    public Iterable getFullPersonaStudentByUsuario(Integer pageNumber, Integer pageSize, String usuario) {
+    public Iterable<?> getFullPersonaStudentByUsuario(Integer pageNumber, Integer pageSize, String usuario) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
                 .filter(persona -> persona.getUsuario().equals(usuario))
                 .map(persona -> {
                     if(persona.getStudent() != null){
-                        return persona.personaToPersonaStudentOutputDto();
+                        return mapper.personaToPersonaStudentOutPut(persona);
                     } else if (persona.getTeacher() != null) {
-                        return persona.personaToPersonaTeacherOutputDto();
+                        return mapper.personaToPersonaTeacherOutPut(persona);
                     } else {
-                        return persona.personaToPersonaOutputDto();
+                        return mapper.personaToPersonaOutDto(persona);
                     }
                 }).toList();
     }
@@ -68,28 +77,30 @@ public class PersonaServiceImpl implements PersonaService {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
-                .map(Persona::personaToPersonaOutputDto).toList();
+                .map(persona -> mapper.personaToPersonaOutDto(persona))
+                .toList();
     }
 
     @Override
-    public Iterable getAllFullPersonas(Integer pageNumber, Integer pageSize) {
+    public Iterable<?> getAllFullPersonas(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
                 .map(persona -> {
                     if(persona.getStudent() != null){
-                        return persona.personaToPersonaStudentOutputDto();
+                        return mapper.personaToPersonaStudentOutPut(persona);
                     } else if (persona.getTeacher() != null) {
-                        return persona.personaToPersonaTeacherOutputDto();
+                        return mapper.personaToPersonaTeacherOutPut(persona);
                     } else {
-                        return persona.personaToPersonaOutputDto();
+                        return mapper.personaToPersonaOutDto(persona);
                     }
                 }).toList();
     }
 
     @Override
-    public PersonaOutputDto addPersona(PersonaInputDto persona) throws Exception {
-        return personaRepository.save(new Persona(persona)).personaToPersonaOutputDto();
+    public PersonaOutputDto addPersona(PersonaInputDto persona) {
+        Persona newPersona = personaRepository.save(new Persona(persona));
+        return mapper.personaToPersonaOutDto(newPersona);
     }
 
     @Override
@@ -127,8 +138,7 @@ public class PersonaServiceImpl implements PersonaService {
                 ? persona.getTermination_date()
                 : currentPersona.getTermination_date());
 
-        return personaRepository.save(currentPersona)
-                .personaToPersonaOutputDto();
+        return mapper.personaToPersonaOutDto(personaRepository.save(currentPersona));
     }
 
     @Override
@@ -136,17 +146,23 @@ public class PersonaServiceImpl implements PersonaService {
         Persona deletedPersona = personaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
 
-        if(deletedPersona.getStudent() != null){
-            teacherRepository.findById(deletedPersona.getStudent().getTeacher().getId_teacher())
-                    .orElseThrow().getStudents().remove(deletedPersona.getStudent());
-        }
+        if (deletedPersona.getStudent() != null){
+            String id_teacher = deletedPersona.getStudent().getTeacher().getId_teacher();
 
-        if(deletedPersona.getTeacher() != null){
-            deletedPersona.getTeacher().getStudents().forEach(e -> {
-                studentRepository.findById(e.getId_student())
-                        .orElseThrow()
-                        .setTeacher(null);
-            });
+            teacherRepository
+                    .findById(id_teacher)
+                    .orElseThrow()
+                    .getStudents()
+                    .remove(deletedPersona.getStudent());
+        }
+        else if (deletedPersona.getTeacher() != null){
+            deletedPersona
+                    .getTeacher()
+                    .getStudents()
+                    .forEach(e -> studentRepository
+                            .findById(e.getId_student())
+                            .orElseThrow()
+                            .setTeacher(null));
         }
 
         personaRepository.deleteById(id);

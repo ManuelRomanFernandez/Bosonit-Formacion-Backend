@@ -10,9 +10,9 @@ public interface PersonaService {
     PersonaStudentOutputDto getPersonaStudentById(Integer id);
     PersonaTeacherOutputDto getPersonaTeacherById(Integer id);
     Iterable<PersonaOutputDto> getPersonaByUsuario(Integer pageNumber, Integer pageSize, String usuario);
-    Iterable getFullPersonaStudentByUsuario(Integer pageNumber, Integer pageSize, String usuario);
+    Iterable<?> getFullPersonaStudentByUsuario(Integer pageNumber, Integer pageSize, String usuario);
     Iterable<PersonaOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize);
-    Iterable getAllFullPersonas(Integer pageNumber, Integer pageSize);
+    Iterable<?> getAllFullPersonas(Integer pageNumber, Integer pageSize);
     PersonaOutputDto addPersona(PersonaInputDto persona) throws Exception;
     PersonaOutputDto updatePersona(PersonaInputDto persona, Integer id);
     void deletePersonaById(Integer id);

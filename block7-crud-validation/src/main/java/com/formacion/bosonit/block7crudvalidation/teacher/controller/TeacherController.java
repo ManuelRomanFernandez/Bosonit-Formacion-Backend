@@ -17,7 +17,7 @@ public class TeacherController {
     TeacherServiceImpl teacherService;
 
     @GetMapping("/{id_teacher}")
-    public ResponseEntity getTeacherById(
+    public ResponseEntity<?> getTeacherById(
             @PathVariable String id_teacher,
             @RequestParam(defaultValue = "simple", required = false) String outputType
     ){
@@ -31,7 +31,7 @@ public class TeacherController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable> getAllTeachers(
+    public ResponseEntity<Iterable<?>> getAllTeachers(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType

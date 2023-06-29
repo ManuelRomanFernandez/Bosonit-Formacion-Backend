@@ -1,10 +1,7 @@
 package com.formacion.bosonit.block7crudvalidation.persona.domain;
 
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaInputDto;
-import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
 import com.formacion.bosonit.block7crudvalidation.exception.UnprocessableEntityException;
-import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaTeacherOutputDto;
-import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaStudentOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import jakarta.persistence.*;
@@ -24,30 +21,28 @@ import java.util.Date;
 public class Persona {
     @Id
     @GeneratedValue
-    private Integer id_persona;
-    private String usuario;
-    private String password;
+    public Integer id_persona;
+    public String usuario;
+    public String password;
     @Column(name = "nombre")
-    private String name;
+    public String name;
     @Column(name = "apellido")
-    private String surname;
+    public String surname;
     @Column(name = "email_corporativo")
-    private String company_email;
+    public String company_email;
     @Column(name = "email_personal")
-    private String personal_email;
+    public String personal_email;
     @Column(name = "ciudad")
-    private String city;
+    public String city;
     @Column(name = "activo")
-    private Boolean active;
-    private Date created_date;
-    private String imagen;
-    private Date termination_date;
+    public Boolean active;
+    public Date created_date;
+    public String imagen;
+    public Date termination_date;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "id_student")
-    private Student student;
+    public Student student;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "id_teacher")
-    private Teacher teacher;
+    public Teacher teacher;
 
     public Persona(PersonaInputDto personaInputDto) throws UnprocessableEntityException {
         this.id_persona = personaInputDto.getId_persona();
@@ -119,66 +114,5 @@ public class Persona {
         this.imagen = personaInputDto.getImagen();
 
         this.termination_date = personaInputDto.getTermination_date();
-    }
-
-    public PersonaOutputDto personaToPersonaOutputDto(){
-        return new PersonaOutputDto(
-                this.id_persona,
-                this.usuario,
-                this.password,
-                this.name,
-                this.surname,
-                this.company_email,
-                this.personal_email,
-                this.city,
-                this.active,
-                this.created_date,
-                this.imagen,
-                this.termination_date,
-                this.student != null ? this.student.getId_student() : null,
-                this.teacher != null ? this.teacher.getId_teacher() : null
-        );
-    }
-
-    public PersonaStudentOutputDto personaToPersonaStudentOutputDto(){
-        return new PersonaStudentOutputDto(
-                this.id_persona,
-                this.usuario,
-                this.password,
-                this.name,
-                this.surname,
-                this.company_email,
-                this.personal_email,
-                this.city,
-                this.active,
-                this.created_date,
-                this.imagen,
-                this.termination_date,
-                this.student.getId_student(),
-                this.student.getNum_hours_week(),
-                this.student.getComments(),
-                this.student.getTeacher() != null ? this.student.getTeacher().getId_teacher() : null,
-                this.student.getBranch()
-        );
-    }
-
-    public PersonaTeacherOutputDto personaToPersonaTeacherOutputDto(){
-        return new PersonaTeacherOutputDto(
-                this.id_persona,
-                this.usuario,
-                this.password,
-                this.name,
-                this.surname,
-                this.company_email,
-                this.personal_email,
-                this.city,
-                this.active,
-                this.created_date,
-                this.imagen,
-                this.termination_date,
-                this.teacher.getId_teacher(),
-                this.teacher.getComments(),
-                this.teacher.getBranch()
-        );
     }
 }

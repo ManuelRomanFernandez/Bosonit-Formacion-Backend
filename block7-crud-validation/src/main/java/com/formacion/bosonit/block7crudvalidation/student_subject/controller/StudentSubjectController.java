@@ -2,6 +2,7 @@ package com.formacion.bosonit.block7crudvalidation.student_subject.controller;
 
 import com.formacion.bosonit.block7crudvalidation.student_subject.application.StudentSubjectServiceImpl;
 import com.formacion.bosonit.block7crudvalidation.student_subject.controller.dto.StudentSubjectInputDto;
+import com.formacion.bosonit.block7crudvalidation.student_subject.controller.dto.StudentSubjectOutputDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class StudentSubjectController {
     StudentSubjectServiceImpl studentSubjectService;
 
     @GetMapping("/{id_student_subject}")
-    public ResponseEntity getStudentSubjectById(
+    public ResponseEntity<StudentSubjectOutputDto> getStudentSubjectById(
             @Valid
             @PathVariable String id_student_subject
     ){
@@ -28,7 +29,7 @@ public class StudentSubjectController {
     }
 
     @GetMapping("/student/{id_student}")
-    public ResponseEntity getStudentSubjectsByStudentId(
+    public ResponseEntity<Iterable<StudentSubjectOutputDto>> getStudentSubjectsByStudentId(
             @Valid
             @PathVariable String id_student
     ){
@@ -40,7 +41,7 @@ public class StudentSubjectController {
     }
 
     @GetMapping
-    public ResponseEntity getAllStudentSubjects(
+    public ResponseEntity<Iterable<StudentSubjectOutputDto>> getAllStudentSubjects(
             @Valid
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize
@@ -49,7 +50,7 @@ public class StudentSubjectController {
     }
 
     @PostMapping
-    public ResponseEntity addStudentSubject(
+    public ResponseEntity<StudentSubjectOutputDto> addStudentSubject(
             @RequestBody StudentSubjectInputDto studentSubjectInputDto
     ){
         URI location = URI.create("/subject");
@@ -57,7 +58,7 @@ public class StudentSubjectController {
     }
 
     @PutMapping
-    public ResponseEntity updateStudentSubjectById(
+    public ResponseEntity<StudentSubjectOutputDto> updateStudentSubjectById(
             @Valid
             @RequestBody StudentSubjectInputDto studentSubjectInputDto
     ){

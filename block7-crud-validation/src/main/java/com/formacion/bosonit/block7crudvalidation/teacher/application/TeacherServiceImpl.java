@@ -3,11 +3,13 @@ package com.formacion.bosonit.block7crudvalidation.teacher.application;
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
+import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.mapper.TeacherMapper;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherInputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.teacher.respository.TeacherRepository;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.Objects;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
+
+    TeacherMapper mapper = Mappers.getMapper(TeacherMapper.class);
     @Autowired
     TeacherRepository teacherRepository;
     @Autowired
@@ -25,18 +29,22 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherOutputDto getFullTeacherById(String id_teacher) {
-        return teacherRepository.findAll()
-                .stream()
-                .filter(e -> e.getId_teacher().equals(id_teacher))
-                .findFirst().orElseThrow().teacherToTeacherOutputDto();
+        return mapper.teacherToTeacherOutputDto(
+                teacherRepository.findAll()
+                        .stream()
+                        .filter(e -> e.getId_teacher().equals(id_teacher))
+                        .findFirst()
+                        .orElseThrow());
     }
 
     @Override
     public TeacherSimpleOutputDto getSimpleTeacherById(String id_teacher) {
-        return teacherRepository.findAll()
-                .stream()
-                .filter(e -> e.getId_teacher().equals(id_teacher))
-                .findFirst().orElseThrow().teacherToTeacherSimpleOutputDto();
+        return mapper.teacherToTeacherSimpleOutputDto(
+                teacherRepository.findAll()
+                        .stream()
+                        .filter(e -> e.getId_teacher().equals(id_teacher))
+                        .findFirst()
+                        .orElseThrow());
     }
 
     @Override
@@ -45,7 +53,7 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findAll(pageRequest)
                 .getContent()
                 .stream()
-                .map(Teacher::teacherToTeacherOutputDto)
+                .map(teacher -> mapper.teacherToTeacherOutputDto(teacher))
                 .toList();
     }
 
@@ -55,19 +63,19 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findAll(pageRequest)
                 .getContent()
                 .stream()
-                .map(Teacher::teacherToTeacherSimpleOutputDto)
+                .map(teacher -> mapper.teacherToTeacherSimpleOutputDto(teacher))
                 .toList();
     }
 
     @Override
     public TeacherOutputDto addTeachers(TeacherInputDto teacherInputDto) {
         Persona persona = personaRepository.findById(teacherInputDto.getId_persona()).orElseThrow();
-        Teacher teacher = new Teacher(teacherInputDto);
+        Teacher teacher = mapper.teacherInputDtoToTeacher(teacherInputDto);
 
         persona.setTeacher(teacher);
         teacher.setPersona(persona);
 
-        return teacherRepository.save(teacher).teacherToTeacherOutputDto();
+        return mapper.teacherToTeacherOutputDto(teacherRepository.save(teacher));
     }
 
     @Override
@@ -100,8 +108,7 @@ public class TeacherServiceImpl implements TeacherService {
             currentTeacher.setPersona(updatedPersona);
         }
 
-        return teacherRepository.save(currentTeacher)
-                .teacherToTeacherSimpleOutputDto();
+        return mapper.teacherToTeacherSimpleOutputDto(teacherRepository.save(currentTeacher));
     }
 
     @Override
@@ -117,12 +124,10 @@ public class TeacherServiceImpl implements TeacherService {
                 .setTeacher(null);
 
         studentRepository.findAll()
-                .stream()
-                .map(e -> {
-                    if(e.getTeacher() != null && e.getTeacher().getId_teacher().equals(id_teacher))
-                        e.setTeacher(null);
-
-                    return e;
+                .forEach(student -> {
+                    if(student.getTeacher() != null && student.getTeacher().getId_teacher().equals(id_teacher)) {
+                        student.setTeacher(null);
+                    }
                 });
 
         teacherRepository.delete(deleteTeacher);

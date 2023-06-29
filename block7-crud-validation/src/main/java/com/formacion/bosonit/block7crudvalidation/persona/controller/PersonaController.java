@@ -16,7 +16,7 @@ public class PersonaController {
     PersonaServiceImpl personaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getPersonaById(
+    public ResponseEntity<?> getPersonaById(
             @PathVariable Integer id,
             @RequestParam(defaultValue = "simple", required = false) String outputType){
         PersonaOutputDto persona = personaService.getPersonaById(id);
@@ -31,7 +31,7 @@ public class PersonaController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity getPersonaByName(
+    public ResponseEntity<?> getPersonaByName(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType,
@@ -46,7 +46,7 @@ public class PersonaController {
     }
 
     @GetMapping
-    public ResponseEntity getAllPersonas(
+    public ResponseEntity<?> getAllPersonas(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType
@@ -58,7 +58,7 @@ public class PersonaController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) throws Exception {
+    public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) {
         URI location = URI.create("/persona");
         return ResponseEntity.created(location).body(personaService.addPersona(persona));
     }

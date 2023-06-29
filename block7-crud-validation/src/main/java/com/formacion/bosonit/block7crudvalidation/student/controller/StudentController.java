@@ -18,7 +18,7 @@ public class StudentController {
     StudentServiceImpl studentService;
 
     @GetMapping("/{id_student}")
-    public ResponseEntity getStudentById(
+    public ResponseEntity<?> getStudentById(
             @Valid
             @PathVariable String id_student,
             @RequestParam(defaultValue = "simple", required = false) String outputType
@@ -34,7 +34,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable> getAllStudents(
+    public ResponseEntity<Iterable<?>> getAllStudents(
             @Valid
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,

@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TeacherInputDto {
     String id_teacher;
-    @NotNull(message = "id_persona no puede ser null")
     Integer id_persona;
     String comments;
     @NotNull(message = "branch no puede ser null")

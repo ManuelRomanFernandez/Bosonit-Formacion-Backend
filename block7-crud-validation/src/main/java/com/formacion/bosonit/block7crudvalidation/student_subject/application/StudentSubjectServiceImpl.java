@@ -1,11 +1,14 @@
 package com.formacion.bosonit.block7crudvalidation.student_subject.application;
 
+import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
 import com.formacion.bosonit.block7crudvalidation.student_subject.controller.dto.StudentSubjectInputDto;
 import com.formacion.bosonit.block7crudvalidation.student_subject.controller.dto.StudentSubjectOutputDto;
+import com.formacion.bosonit.block7crudvalidation.student_subject.controller.mapper.StudentSubjectMapper;
 import com.formacion.bosonit.block7crudvalidation.student_subject.domain.StudentSubject;
 import com.formacion.bosonit.block7crudvalidation.student_subject.repository.StudentSubjectRepository;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.Objects;
 
 @Service
 public class StudentSubjectServiceImpl implements StudentSubjectService {
+    StudentSubjectMapper mapper = Mappers.getMapper(StudentSubjectMapper.class);
     @Autowired
     StudentSubjectRepository studentSubjectRepository;
     @Autowired
@@ -21,8 +25,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
     @Override
     public StudentSubjectOutputDto getStudentSubjectById(String id_student_subject) {
-        return studentSubjectRepository.findById(id_student_subject)
-                .orElseThrow().studentSubjectToStudentSubjectOutputDto();
+        return mapper.studentSubjectToStudentSubjectOutputDto(
+                studentSubjectRepository
+                        .findById(id_student_subject)
+                        .orElseThrow());
     }
 
     @Override
@@ -30,7 +36,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         return studentSubjectRepository.findAll()
                 .stream()
                 .filter(e -> e.getStudent().getId_student().equals(id_student))
-                .map(StudentSubject::studentSubjectToStudentSubjectOutputDto)
+                .map(studentSubject -> mapper.studentSubjectToStudentSubjectOutputDto(studentSubject))
                 .toList();
     }
 
@@ -40,26 +46,26 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         return studentSubjectRepository.findAll(pageRequest)
                 .getContent()
                 .stream()
-                .map(StudentSubject::studentSubjectToStudentSubjectOutputDto)
+                .map(studentSubject -> mapper.studentSubjectToStudentSubjectOutputDto(studentSubject))
                 .toList();
     }
 
     @Override
     public StudentSubjectOutputDto addStudentSubject(StudentSubjectInputDto studentSubjectInputDto) {
+        StudentSubject studentSubject = mapper.studentSubjectInputDtoToStudentSubject(studentSubjectInputDto);
         Student student = studentRepository.findById(studentSubjectInputDto.getId_student()).orElseThrow();
-        StudentSubject studentSubject = new StudentSubject(studentSubjectInputDto);
 
         student.getStudentSubjects().add(studentSubject);
         studentSubject.setStudent(student);
 
-        return studentSubjectRepository.save(studentSubject).studentSubjectToStudentSubjectOutputDto();
+        return mapper.studentSubjectToStudentSubjectOutputDto(studentSubjectRepository.save(studentSubject));
     }
 
     @Override
     public StudentSubjectOutputDto updateStudentSubjectById(StudentSubjectInputDto studentSubjectInputDto) {
         StudentSubject currentStudentSubject = studentSubjectRepository
                 .findById(studentSubjectInputDto.getId_student_subject())
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("No existe el student_subject con el id indicado"));
 
         if(studentSubjectInputDto.getSubject() != null)
             currentStudentSubject.setSubject(studentSubjectInputDto.getSubject());
@@ -77,7 +83,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                     .findById(studentSubjectInputDto.getId_student())
                     .orElseThrow();
 
-            if(!Objects.equals(currentStudentSubject.getStudent().getId_student(), studentSubjectInputDto.getId_student())){
+            if(!Objects.equals(
+                    currentStudentSubject.getStudent().getId_student(),
+                    studentSubjectInputDto.getId_student())
+            ){
                 Student oldStudent = studentRepository
                         .findById(currentStudentSubject.getStudent().getId_student())
                         .orElseThrow();
@@ -90,17 +99,18 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             currentStudentSubject.setStudent(updatedStudent);
         }
 
-        return studentSubjectRepository.save(currentStudentSubject)
-                .studentSubjectToStudentSubjectOutputDto();
+        return mapper.studentSubjectToStudentSubjectOutputDto( studentSubjectRepository.save(currentStudentSubject));
     }
 
     @Override
     public void deleteStudentSubjectById(String id_student_subject) {
         StudentSubject deleteStudentSubject = studentSubjectRepository
                 .findById(id_student_subject)
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("No existe el student_subject con el id indicado"));
 
-        studentRepository.findById(deleteStudentSubject.getStudent().getId_student())
+        String id_student = deleteStudentSubject.getStudent().getId_student();
+
+        studentRepository.findById(id_student)
                 .orElseThrow()
                 .getStudentSubjects()
                 .remove(deleteStudentSubject);
