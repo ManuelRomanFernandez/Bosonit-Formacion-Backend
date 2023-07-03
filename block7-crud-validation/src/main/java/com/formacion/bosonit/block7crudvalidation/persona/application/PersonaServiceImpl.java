@@ -9,11 +9,15 @@ import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
+import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.respository.TeacherRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PersonaServiceImpl implements PersonaService {
@@ -95,6 +99,15 @@ public class PersonaServiceImpl implements PersonaService {
                         return mapper.personaToPersonaOutDto(persona);
                     }
                 }).toList();
+    }
+
+    @Override
+    public TeacherSimpleOutputDto getTemplateTeacher(String id_teacher) {
+        String url = "http://localhost:8081/teacher/" + id_teacher;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<TeacherSimpleOutputDto> response = restTemplate.exchange(url, HttpMethod.GET, null, TeacherSimpleOutputDto.class);
+
+        return response.getBody();
     }
 
     @Override

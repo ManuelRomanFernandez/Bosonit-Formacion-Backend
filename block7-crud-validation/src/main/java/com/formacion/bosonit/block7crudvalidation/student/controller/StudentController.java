@@ -1,6 +1,6 @@
 package com.formacion.bosonit.block7crudvalidation.student.controller;
 
-import com.formacion.bosonit.block7crudvalidation.student.application.StudentServiceImpl;
+import com.formacion.bosonit.block7crudvalidation.student.application.StudentService;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentInputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentSimpleOutputDto;
@@ -15,27 +15,20 @@ import java.net.URI;
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
-    StudentServiceImpl studentService;
+    StudentService studentService;
 
     @GetMapping("/{id_student}")
     public ResponseEntity<?> getStudentById(
-            @Valid
             @PathVariable String id_student,
             @RequestParam(defaultValue = "simple", required = false) String outputType
     ){
-        try {
-            return outputType.equals("full")
-                    ? ResponseEntity.ok().body(studentService.getFullStudentById(id_student))
-                    : ResponseEntity.ok().body(studentService.getSimpleStudentById(id_student));
-
-        } catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
+        return outputType.equals("full")
+                ? ResponseEntity.ok().body(studentService.getFullStudentById(id_student))
+                : ResponseEntity.ok().body(studentService.getSimpleStudentById(id_student));
     }
 
     @GetMapping
     public ResponseEntity<Iterable<?>> getAllStudents(
-            @Valid
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType
@@ -58,9 +51,8 @@ public class StudentController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteStudentById(@Valid @RequestParam String id_student) {
+    public void deleteStudentById(@RequestParam String id_student) {
         studentService.deleteStudentById(id_student);
-        return ResponseEntity.ok().body("El estudiante con id " + id_student + " ha sido eliminado");
     }
 
 }

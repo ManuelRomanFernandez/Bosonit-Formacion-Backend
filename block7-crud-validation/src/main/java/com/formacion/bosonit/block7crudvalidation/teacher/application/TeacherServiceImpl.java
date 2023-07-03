@@ -1,5 +1,6 @@
 package com.formacion.bosonit.block7crudvalidation.teacher.application;
 
+import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
@@ -34,7 +35,7 @@ public class TeacherServiceImpl implements TeacherService {
                         .stream()
                         .filter(e -> e.getId_teacher().equals(id_teacher))
                         .findFirst()
-                        .orElseThrow());
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado")));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class TeacherServiceImpl implements TeacherService {
                         .stream()
                         .filter(e -> e.getId_teacher().equals(id_teacher))
                         .findFirst()
-                        .orElseThrow());
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado")));
     }
 
     @Override
@@ -83,7 +84,8 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher currentTeacher = teacherRepository.findAll()
                 .stream()
                 .filter(e -> e.getId_teacher().equals(teacherInputDto.getId_teacher()))
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
         if(teacherInputDto.getComments() != null)
             currentTeacher.setComments(teacherInputDto.getComments());
@@ -93,12 +95,12 @@ public class TeacherServiceImpl implements TeacherService {
         if(teacherInputDto.getId_persona() != null){
             Persona updatedPersona = personaRepository
                     .findById(teacherInputDto.getId_persona())
-                    .orElseThrow();
+                    .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
 
             if(!Objects.equals(currentTeacher.getPersona().getId_persona(), teacherInputDto.getId_persona())){
                 Persona oldPersona = personaRepository
                         .findById(currentTeacher.getPersona().getId_persona())
-                        .orElseThrow();
+                        .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
 
 
                 oldPersona.setTeacher(null);
@@ -117,10 +119,10 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .filter(e -> e.getId_teacher().equals(id_teacher))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
         personaRepository.findById(deleteTeacher.getPersona().getId_persona())
-                .orElseThrow()
+                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"))
                 .setTeacher(null);
 
         studentRepository.findAll()

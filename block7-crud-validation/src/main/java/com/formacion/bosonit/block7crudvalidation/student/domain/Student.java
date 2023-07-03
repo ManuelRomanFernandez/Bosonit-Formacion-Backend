@@ -4,7 +4,6 @@ import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.student_subject.domain.StudentSubject;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +12,8 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "estudiante")
+@NoArgsConstructor
 @Getter
 @Setter
 public class Student {

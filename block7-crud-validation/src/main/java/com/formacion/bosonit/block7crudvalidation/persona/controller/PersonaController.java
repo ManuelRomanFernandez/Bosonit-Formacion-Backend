@@ -1,6 +1,6 @@
 package com.formacion.bosonit.block7crudvalidation.persona.controller;
 
-import com.formacion.bosonit.block7crudvalidation.persona.application.PersonaServiceImpl;
+import com.formacion.bosonit.block7crudvalidation.persona.application.PersonaService;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaInputDto;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class PersonaController {
     @Autowired
     PersonaFeign personaFeign;
     @Autowired
-    PersonaServiceImpl personaService;
+    PersonaService personaService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getPersonaById(
@@ -62,15 +62,22 @@ public class PersonaController {
     @GetMapping("/profesor/{id_teacher}")
     public ResponseEntity<?> getFeignTeacherById(
             @PathVariable String id_teacher,
-            @RequestParam(defaultValue = "simple", required = false) String outputType
+            @RequestParam(defaultValue = "simple", required = false) String outputType,
+            @RequestParam(defaultValue = "feign", required = false) String method
     ){
-        return personaFeign.getTeacherById(id_teacher, outputType);
+        return method.equalsIgnoreCase("template")
+                ? ResponseEntity.ok().body(personaService.getTemplateTeacher(id_teacher))
+                : personaFeign.getTeacherById(id_teacher, outputType);
     }
 
     @PostMapping
     public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) {
         URI location = URI.create("/persona");
-        return ResponseEntity.created(location).body(personaService.addPersona(persona));
+        try {
+            return ResponseEntity.created(location).body(personaService.addPersona(persona));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/{id}")
@@ -81,9 +88,8 @@ public class PersonaController {
 
 
     @DeleteMapping
-    public ResponseEntity<String> deletePersonaById(@RequestParam int id_persona) {
+    public void deletePersonaById(@RequestParam int id_persona) {
         personaService.deletePersonaById(id_persona);
-        return ResponseEntity.ok().body("La persona con id: " + id_persona + " ha sido eliminada");
     }
 
 }

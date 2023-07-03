@@ -1,14 +1,11 @@
 package com.formacion.bosonit.block7crudvalidation.student.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class StudentOutputDto {
     String id_student;
     Integer id_persona;

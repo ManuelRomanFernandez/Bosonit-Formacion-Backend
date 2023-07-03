@@ -5,7 +5,6 @@ import com.formacion.bosonit.block7crudvalidation.exception.UnprocessableEntityE
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +12,8 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "persona")
+@NoArgsConstructor
 @Getter
 @Setter
 public class Persona {

@@ -1,5 +1,6 @@
 package com.formacion.bosonit.block7crudvalidation.student.application;
 
+import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
 import com.formacion.bosonit.block7crudvalidation.student.controller.mapper.StudentMapper;
@@ -34,7 +35,7 @@ public class StudentServiceImpl implements StudentService{
                         .stream()
                         .filter(e -> e.getId_student().equals(id_student))
                         .findFirst()
-                        .orElseThrow());
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado")));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class StudentServiceImpl implements StudentService{
                 studentRepository.findAll()
                         .stream()
                         .filter(e -> e.getId_student().equals(id_student))
-                        .findFirst().orElseThrow());
+                        .findFirst().orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado")));
     }
 
     @Override
@@ -68,14 +69,17 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentInputDto) {
-        Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
+        Persona persona = personaRepository.findById(studentInputDto.getId_persona())
+                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
         Student student = mapper.studentInputDtoToTeacher(studentInputDto);
 
         persona.setStudent(student);
         student.setPersona(persona);
 
         if(studentInputDto.getId_teacher() != null){
-            Teacher teacher = teacherRepository.findById(studentInputDto.getId_teacher()).orElseThrow();
+            Teacher teacher = teacherRepository
+                    .findById(studentInputDto.getId_teacher())
+                    .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
 
             teacher.getStudents().add(student);
             student.setTeacher(teacher);
@@ -89,7 +93,8 @@ public class StudentServiceImpl implements StudentService{
         Student currentStudent = studentRepository.findAll()
                 .stream()
                 .filter(e -> e.getId_student().equals(studentInputDto.getId_student()))
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
 
 
         currentStudent.setNum_hours_week(studentInputDto.getNum_hours_week());
@@ -101,8 +106,12 @@ public class StudentServiceImpl implements StudentService{
         currentStudent.setBranch(studentInputDto.getBranch());
 
         if(studentInputDto.getId_persona() != null && !Objects.equals(currentStudent.getPersona().getId_persona(), studentInputDto.getId_persona())){
-            Persona oldPersona = personaRepository.findById(currentStudent.getPersona().getId_persona()).orElseThrow();
-            Persona updatedPersona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
+            Persona oldPersona = personaRepository
+                    .findById(currentStudent.getPersona().getId_persona())
+                    .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
+            Persona updatedPersona = personaRepository
+                    .findById(studentInputDto.getId_persona())
+                    .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
 
             oldPersona.setStudent(null);
             updatedPersona.setStudent(currentStudent);
@@ -112,12 +121,12 @@ public class StudentServiceImpl implements StudentService{
         if(studentInputDto.getId_teacher() != null){
             Teacher updatedTeacher = teacherRepository
                     .findById(studentInputDto.getId_teacher())
-                    .orElseThrow();
+                    .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
             if(currentStudent.getTeacher() != null && !Objects.equals(currentStudent.getTeacher().getId_teacher(), studentInputDto.getId_teacher())){
                 Teacher oldTeacher = teacherRepository
                         .findById(currentStudent.getTeacher().getId_teacher())
-                        .orElseThrow();
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
                 oldTeacher.getStudents().remove(currentStudent);
             }
@@ -135,7 +144,7 @@ public class StudentServiceImpl implements StudentService{
                 .stream()
                 .filter(e -> e.getId_student().equals(id_student))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
 
         Integer id_persona = deletedStudent.getPersona().getId_persona();
 
@@ -145,7 +154,7 @@ public class StudentServiceImpl implements StudentService{
 
         if (deletedStudent.getTeacher() != null)
             teacherRepository.findById(deletedStudent.getTeacher().getId_teacher())
-                    .orElseThrow()
+                    .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"))
                     .getStudents()
                     .remove(deletedStudent);
 
