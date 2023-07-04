@@ -53,7 +53,8 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     @Override
     public StudentSubjectOutputDto addStudentSubject(StudentSubjectInputDto studentSubjectInputDto) {
         StudentSubject studentSubject = mapper.studentSubjectInputDtoToStudentSubject(studentSubjectInputDto);
-        Student student = studentRepository.findById(studentSubjectInputDto.getId_student()).orElseThrow();
+        Student student = studentRepository.findById(studentSubjectInputDto.getId_student())
+                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
 
         student.getStudentSubjects().add(studentSubject);
         studentSubject.setStudent(student);
@@ -67,16 +68,13 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                 .findById(studentSubjectInputDto.getId_student_subject())
                 .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
 
-        if(studentSubjectInputDto.getSubject() != null)
-            currentStudentSubject.setSubject(studentSubjectInputDto.getSubject());
+        currentStudentSubject.setSubject(studentSubjectInputDto.getSubject());
 
-        if(studentSubjectInputDto.getComments() != null)
-            currentStudentSubject.setComments(studentSubjectInputDto.getComments());
+        currentStudentSubject.setComments(studentSubjectInputDto.getComments());
 
         currentStudentSubject.setInitial_date(studentSubjectInputDto.getInitial_date());
 
-        if(studentSubjectInputDto.getFinish_date() != null)
-            currentStudentSubject.setFinish_date(studentSubjectInputDto.getFinish_date());
+        currentStudentSubject.setFinish_date(studentSubjectInputDto.getFinish_date());
 
         if(studentSubjectInputDto.getId_student() != null){
             Student updatedStudent = studentRepository
@@ -111,7 +109,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         String id_student = deleteStudentSubject.getStudent().getId_student();
 
         studentRepository.findById(id_student)
-                .orElseThrow()
+                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"))
                 .getStudentSubjects()
                 .remove(deleteStudentSubject);
 

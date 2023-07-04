@@ -9,9 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherOutputDto {
-    String id_teacher;
-    Integer id_persona;
+public class TeacherFullOutputDto extends TeacherSimpleOutputDto {
     String usuario;
     String name;
     String surname;
@@ -22,6 +20,4 @@ public class TeacherOutputDto {
     Date created_date;
     String imagen;
     Date termination_date;
-    String comments;
-    String branch;
 }

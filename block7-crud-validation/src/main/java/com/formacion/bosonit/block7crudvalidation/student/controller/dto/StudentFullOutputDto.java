@@ -6,9 +6,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class StudentOutputDto {
-    String id_student;
-    Integer id_persona;
+public class StudentFullOutputDto extends StudentSimpleOutputDto {
     String usuario;
     String password;
     String name;
@@ -20,8 +18,4 @@ public class StudentOutputDto {
     Date created_date;
     String imagen;
     Date termination_date;
-    Integer num_hours_week;
-    String comments;
-    String id_teacher;
-    String branch;
 }

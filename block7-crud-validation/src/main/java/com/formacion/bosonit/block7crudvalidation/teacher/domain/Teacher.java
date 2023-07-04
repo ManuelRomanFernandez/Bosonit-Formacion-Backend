@@ -21,7 +21,7 @@ public class Teacher {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     public String id_teacher;
     @OneToOne
-    @JoinColumn(name = "id_persona", nullable = false, unique = true)
+    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", unique = true)
     public Persona persona;
     @Column(name = "comentarios")
     public String comments;

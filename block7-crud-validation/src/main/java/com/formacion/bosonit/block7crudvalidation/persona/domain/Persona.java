@@ -42,7 +42,7 @@ public class Persona {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     public Teacher teacher;
 
-    public Persona(PersonaInputDto personaInputDto) throws UnprocessableEntityException {
+    public Persona(PersonaInputDto personaInputDto) {
         this.id_persona = personaInputDto.getId_persona();
 
         if(personaInputDto.getUsuario() == null){

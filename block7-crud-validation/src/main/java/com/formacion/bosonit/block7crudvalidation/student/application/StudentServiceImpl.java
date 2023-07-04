@@ -3,11 +3,11 @@ package com.formacion.bosonit.block7crudvalidation.student.application;
 import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
+import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentFullOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.mapper.StudentMapper;
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
-import com.formacion.bosonit.block7crudvalidation.teacher.respository.TeacherRepository;
+import com.formacion.bosonit.block7crudvalidation.teacher.repository.TeacherRepository;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentInputDto;
-import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService{
     TeacherRepository teacherRepository;
 
     @Override
-    public StudentOutputDto getFullStudentById(String id_student) {
+    public StudentFullOutputDto getFullStudentById(String id_student) {
         return mapper.studentToStudentOutputDto(
                 studentRepository.findAll()
                         .stream()
@@ -48,7 +48,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Iterable<StudentOutputDto> getAllFullStudents(Integer pageNumber, Integer pageSize) {
+    public Iterable<StudentFullOutputDto> getAllFullStudents(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return studentRepository.findAll(pageRequest)
                 .getContent()
@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentOutputDto addStudent(StudentInputDto studentInputDto) {
+    public StudentFullOutputDto addStudent(StudentInputDto studentInputDto) {
         Persona persona = personaRepository.findById(studentInputDto.getId_persona())
                 .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
         Student student = mapper.studentInputDtoToTeacher(studentInputDto);
@@ -79,7 +79,7 @@ public class StudentServiceImpl implements StudentService{
         if(studentInputDto.getId_teacher() != null){
             Teacher teacher = teacherRepository
                     .findById(studentInputDto.getId_teacher())
-                    .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+                    .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
             teacher.getStudents().add(student);
             student.setTeacher(teacher);
@@ -99,9 +99,7 @@ public class StudentServiceImpl implements StudentService{
 
         currentStudent.setNum_hours_week(studentInputDto.getNum_hours_week());
 
-        if(studentInputDto.getComments() != null){
-            currentStudent.setComments(studentInputDto.getComments());
-        }
+        currentStudent.setComments(studentInputDto.getComments());
 
         currentStudent.setBranch(studentInputDto.getBranch());
 
@@ -149,7 +147,7 @@ public class StudentServiceImpl implements StudentService{
         Integer id_persona = deletedStudent.getPersona().getId_persona();
 
         personaRepository.findById(id_persona)
-                .orElseThrow()
+                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"))
                 .setStudent(null);
 
         if (deletedStudent.getTeacher() != null)

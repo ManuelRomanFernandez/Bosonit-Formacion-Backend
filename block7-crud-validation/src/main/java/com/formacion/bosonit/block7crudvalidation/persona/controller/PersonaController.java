@@ -2,7 +2,7 @@ package com.formacion.bosonit.block7crudvalidation.persona.controller;
 
 import com.formacion.bosonit.block7crudvalidation.persona.application.PersonaService;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaInputDto;
-import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaOutputDto;
+import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaSimpleOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +20,11 @@ public class PersonaController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getPersonaById(
             @PathVariable Integer id,
-            @RequestParam(defaultValue = "simple", required = false) String outputType){
-        PersonaOutputDto persona = personaService.getPersonaById(id);
-
-        if(outputType.equalsIgnoreCase("full")){
-            return persona.getId_student() != null
-                    ? ResponseEntity.ok().body(personaService.getPersonaStudentById(id))
-                    : ResponseEntity.ok().body(personaService.getPersonaTeacherById(id));
-        } else {
-            return ResponseEntity.ok().body(persona);
-        }
+            @RequestParam(defaultValue = "simple", required = false) String outputType)
+    {
+        return outputType.equalsIgnoreCase("full")
+                ? ResponseEntity.ok().body(personaService.getFullPersonaById(id))
+                : ResponseEntity.ok().body(personaService.getPersonaById(id));
     }
 
     @GetMapping("/name/{name}")
@@ -39,11 +34,9 @@ public class PersonaController {
             @RequestParam(defaultValue = "simple", required = false) String outputType,
             @PathVariable String name)
     {
-        if(outputType.equalsIgnoreCase("full")){
-            return ResponseEntity.ok().body(personaService.getFullPersonaStudentByUsuario(pageNumber, pageSize, name));
-        } else {
-            return ResponseEntity.ok().body(personaService.getPersonaByUsuario(pageNumber, pageSize, name));
-        }
+        return outputType.equalsIgnoreCase("full")
+                ? ResponseEntity.ok().body(personaService.getFullPersonaStudentByUsuario(pageNumber, pageSize, name))
+                : ResponseEntity.ok().body(personaService.getPersonaByUsuario(pageNumber, pageSize, name));
 
     }
 
@@ -71,7 +64,7 @@ public class PersonaController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) {
+    public ResponseEntity<PersonaSimpleOutputDto> addPersona(@RequestBody PersonaInputDto persona) {
         URI location = URI.create("/persona");
         try {
             return ResponseEntity.created(location).body(personaService.addPersona(persona));
@@ -81,7 +74,10 @@ public class PersonaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonaOutputDto> updateStudent(@RequestBody PersonaInputDto personaInputDto, @PathVariable Integer id) {
+    public ResponseEntity<PersonaSimpleOutputDto> updateStudent(
+            @RequestBody PersonaInputDto personaInputDto,
+            @PathVariable Integer id)
+    {
         personaService.getPersonaById(id);
         return ResponseEntity.ok().body(personaService.updatePersona(personaInputDto, id));
     }

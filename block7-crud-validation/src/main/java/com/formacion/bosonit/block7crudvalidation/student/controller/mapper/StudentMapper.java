@@ -1,7 +1,7 @@
 package com.formacion.bosonit.block7crudvalidation.student.controller.mapper;
 
+import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentFullOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentInputDto;
-import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import org.mapstruct.Mapper;
@@ -21,9 +21,11 @@ public interface StudentMapper {
     @Mapping(target = "created_date", source = "student.persona.created_date")
     @Mapping(target = "imagen", source = "student.persona.imagen")
     @Mapping(target = "termination_date", source = "student.persona.termination_date")
-    StudentOutputDto studentToStudentOutputDto(Student student);
+    @Mapping(target = "id_teacher", source = "student.teacher.id_teacher")
+    StudentFullOutputDto studentToStudentOutputDto(Student student);
 
     @Mapping(target = "id_persona", source = "student.persona.id_persona")
+    @Mapping(target = "id_teacher", source = "student.teacher.id_teacher")
     StudentSimpleOutputDto studentToStudentSimpleOutputDto(Student student);
 
     Student studentInputDtoToTeacher(StudentInputDto studentInputDto);

@@ -2,7 +2,7 @@ package com.formacion.bosonit.block7crudvalidation.student.controller;
 
 import com.formacion.bosonit.block7crudvalidation.student.application.StudentService;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentInputDto;
-import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentOutputDto;
+import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentFullOutputDto;
 import com.formacion.bosonit.block7crudvalidation.student.controller.dto.StudentSimpleOutputDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentOutputDto> addStudent(@Valid @RequestBody StudentInputDto studentInputDto){
+    public ResponseEntity<StudentFullOutputDto> addStudent(@Valid @RequestBody StudentInputDto studentInputDto){
         URI location = URI.create("/student");
         return ResponseEntity.created(location).body(studentService.addStudent(studentInputDto));
     }
