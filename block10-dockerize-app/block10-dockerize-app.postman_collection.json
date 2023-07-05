@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "2f338680-05c3-4b22-b18d-1cb484126466",
+		"name": "block10-dockerize-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28092011"
+	},
+	"item": [
+		{
+			"name": "employeeList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/employeeList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"employeeList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createEmp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": \"1212\",\r\n    \"employeeName\": \"JONES\",\r\n    \"employeeEmail\": \"JONES@email.com\",\r\n    \"employeeAddress\": \"CANADA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/createEmp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"createEmp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeeList 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/employeeList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"employeeList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "executeUpdateEmp",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": \"1212\",\r\n    \"employeeName\": \"JONES\",\r\n    \"employeeEmail\": \"JONES@email.com\",\r\n    \"employeeAddress\": \"USA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/executeUpdateEmp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"executeUpdateEmp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeeList 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/employeeList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"employeeList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEmpById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": \"1212\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/deleteEmpById",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"deleteEmpById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeeList 4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dockerApp/employeeList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dockerApp",
+						"employeeList"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
