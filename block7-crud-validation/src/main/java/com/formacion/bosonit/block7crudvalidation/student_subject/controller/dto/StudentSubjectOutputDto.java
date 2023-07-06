@@ -10,9 +10,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentSubjectOutputDto {
-    String id_student_subject;
     String id_student;
-    String subject;
+    String id_subject;
     String comments;
     Date initial_date;
     Date finish_date;

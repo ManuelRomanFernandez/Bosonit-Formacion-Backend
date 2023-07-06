@@ -15,7 +15,7 @@ public interface PersonaService {
     Iterable<PersonaSimpleOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize);
     Iterable<?> getAllFullPersonas(Integer pageNumber, Integer pageSize);
     TeacherSimpleOutputDto getTemplateTeacher(String id_teacher);
-    PersonaSimpleOutputDto addPersona(PersonaInputDto persona) throws Exception;
+    PersonaSimpleOutputDto addPersona(PersonaInputDto persona);
     PersonaSimpleOutputDto updatePersona(PersonaInputDto persona, Integer id);
     void deletePersonaById(Integer id);
 }

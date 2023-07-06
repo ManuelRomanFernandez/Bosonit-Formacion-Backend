@@ -34,6 +34,7 @@ public class PersonaServiceImpl implements PersonaService {
                 .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado")));
     }
 
+    @Override
     public Object getFullPersonaById(Integer id){
         Persona currentPersona = personaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
@@ -75,20 +76,14 @@ public class PersonaServiceImpl implements PersonaService {
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
                 .filter(persona -> persona.getUsuario().equals(usuario))
-                .map(persona -> {
-                    if(persona.getStudent() != null){
-                        return mapper.personaToPersonaStudentOutPut(persona);
-                    } else if (persona.getTeacher() != null) {
-                        return mapper.personaToPersonaTeacherOutPut(persona);
-                    } else {
-                        return mapper.personaToPersonaOutDto(persona);
-                    }
-                }).toList();
+                .map(this::checkPersonaTypeOutputDto)
+                .toList();
     }
 
     @Override
     public Iterable<PersonaSimpleOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
                 .map(persona -> mapper.personaToPersonaOutDto(persona))
@@ -98,17 +93,11 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public Iterable<?> getAllFullPersonas(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
-                .map(persona -> {
-                    if(persona.getStudent() != null){
-                        return mapper.personaToPersonaStudentOutPut(persona);
-                    } else if (persona.getTeacher() != null) {
-                        return mapper.personaToPersonaTeacherOutPut(persona);
-                    } else {
-                        return mapper.personaToPersonaOutDto(persona);
-                    }
-                }).toList();
+                .map(this::checkPersonaTypeOutputDto)
+                .toList();
     }
 
     @Override
@@ -128,8 +117,10 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public PersonaSimpleOutputDto updatePersona(PersonaInputDto persona, Integer id) {
-        Persona currentPersona = personaRepository.findById(id)
+        personaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
+
+        Persona currentPersona = new Persona(persona);
 
         currentPersona.setId_persona(id);
 
@@ -194,10 +185,20 @@ public class PersonaServiceImpl implements PersonaService {
                     .getStudents()
                     .forEach(e -> studentRepository
                             .findById(e.getId_student())
-                            .orElseThrow()
+                            .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"))
                             .setTeacher(null));
         }
 
         personaRepository.deleteById(id);
+    }
+
+    private Object checkPersonaTypeOutputDto(Persona persona){
+        if(persona.getStudent() != null){
+            return mapper.personaToPersonaStudentOutPut(persona);
+        } else if (persona.getTeacher() != null) {
+            return mapper.personaToPersonaTeacherOutPut(persona);
+        } else {
+            return mapper.personaToPersonaOutDto(persona);
+        }
     }
 }

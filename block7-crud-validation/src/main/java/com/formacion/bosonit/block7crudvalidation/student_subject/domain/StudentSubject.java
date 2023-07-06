@@ -1,8 +1,8 @@
 package com.formacion.bosonit.block7crudvalidation.student_subject.domain;
 
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
+import com.formacion.bosonit.block7crudvalidation.subject.domain.Subject;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,23 +11,22 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.Date;
 
 @Entity
+@IdClass(StudentSubjectCompositeKey.class)
 @Table(name = "estudiante_asignatura")
 @NoArgsConstructor
 @Getter
 @Setter
 public class StudentSubject {
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    public String id_student_subject;
     @ManyToOne
-    @JoinColumn(name = "id_student", referencedColumnName = "id_student", nullable = false)
-    public Student student;
-    @Column(name = "asignatura")
-    public String subject;
+    @JoinColumn(name = "id_student", referencedColumnName = "id_student")
+    private Student student;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "id_subject", referencedColumnName = "id_subject")
+    private Subject subject;
     @Column(name = "comentarios")
-    public String comments;
-    @NotNull
-    public Date initial_date;
-    public Date finish_date;
+    private String comments;
+    private Date initial_date;
+    private Date finish_date;
 }

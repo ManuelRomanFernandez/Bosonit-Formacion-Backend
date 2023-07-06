@@ -31,20 +31,15 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public StudentFullOutputDto getFullStudentById(String id_student) {
         return mapper.studentToStudentOutputDto(
-                studentRepository.findAll()
-                        .stream()
-                        .filter(e -> e.getId_student().equals(id_student))
-                        .findFirst()
+                studentRepository.findById(id_student)
                         .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado")));
     }
 
     @Override
     public StudentSimpleOutputDto getSimpleStudentById(String id_student) {
         return mapper.studentToStudentSimpleOutputDto(
-                studentRepository.findAll()
-                        .stream()
-                        .filter(e -> e.getId_student().equals(id_student))
-                        .findFirst().orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado")));
+                studentRepository.findById(id_student)
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado")));
     }
 
     @Override
@@ -71,6 +66,7 @@ public class StudentServiceImpl implements StudentService{
     public StudentFullOutputDto addStudent(StudentInputDto studentInputDto) {
         Persona persona = personaRepository.findById(studentInputDto.getId_persona())
                 .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+
         Student student = mapper.studentInputDtoToTeacher(studentInputDto);
 
         persona.setStudent(student);

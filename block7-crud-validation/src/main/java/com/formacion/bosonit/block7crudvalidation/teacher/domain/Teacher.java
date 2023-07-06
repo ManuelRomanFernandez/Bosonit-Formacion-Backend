@@ -19,14 +19,14 @@ public class Teacher {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
-    public String id_teacher;
+    private String id_teacher;
     @OneToOne
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", unique = true)
-    public Persona persona;
+    private Persona persona;
     @Column(name = "comentarios")
-    public String comments;
+    private String comments;
     @Column(name = "rama")
-    public String branch;
+    private String branch;
     @OneToMany
-    public Set<Student> students;
+    private Set<Student> students;
 }

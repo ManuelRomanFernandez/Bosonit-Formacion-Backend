@@ -19,28 +19,28 @@ import java.util.Date;
 public class Persona {
     @Id
     @GeneratedValue
-    public Integer id_persona;
-    public String usuario;
-    public String password;
+    private Integer id_persona;
+    private String usuario;
+    private String password;
     @Column(name = "nombre")
-    public String name;
+    private String name;
     @Column(name = "apellido")
-    public String surname;
+    private String surname;
     @Column(name = "email_corporativo")
-    public String company_email;
+    private String company_email;
     @Column(name = "email_personal")
-    public String personal_email;
+    private String personal_email;
     @Column(name = "ciudad")
-    public String city;
+    private String city;
     @Column(name = "activo")
-    public Boolean active;
-    public Date created_date;
-    public String imagen;
-    public Date termination_date;
+    private Boolean active;
+    private Date created_date;
+    private String imagen;
+    private Date termination_date;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    public Student student;
+    private Student student;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    public Teacher teacher;
+    private Teacher teacher;
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id_persona = personaInputDto.getId_persona();

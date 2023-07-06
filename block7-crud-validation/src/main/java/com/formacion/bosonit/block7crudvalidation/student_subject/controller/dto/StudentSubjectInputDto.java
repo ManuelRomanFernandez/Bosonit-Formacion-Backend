@@ -11,9 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentSubjectInputDto {
-    String id_student_subject;
     String id_student;
-    String subject;
+    String id_subject;
     String comments;
     @NotNull(message = "initial_date no puede ser null")
     Date initial_date;
