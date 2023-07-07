@@ -19,7 +19,7 @@ public interface StudentMapper {
     @Mapping(target = "city", source = "student.persona.city")
     @Mapping(target = "active", source = "student.persona.active")
     @Mapping(target = "created_date", source = "student.persona.created_date")
-    @Mapping(target = "imagen", source = "student.persona.imagen")
+    @Mapping(target = "imagen_url", source = "student.persona.imagen_url")
     @Mapping(target = "termination_date", source = "student.persona.termination_date")
     @Mapping(target = "id_teacher", source = "student.teacher.id_teacher")
     StudentFullOutputDto studentToStudentOutputDto(Student student);

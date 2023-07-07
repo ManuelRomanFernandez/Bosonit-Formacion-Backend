@@ -8,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/persona")
+@RequestMapping({"/persona", ""})
 public class PersonaController {
     @Autowired
     PersonaFeign personaFeign;
@@ -63,8 +64,21 @@ public class PersonaController {
                 : personaFeign.getTeacherById(id_teacher, outputType);
     }
 
+    @CrossOrigin(origins = "https://cdpn.io")
+    @GetMapping("/getall")
+    public ResponseEntity<Iterable<PersonaSimpleOutputDto>> getall(){
+        return ResponseEntity.ok().body(personaService.getAllPersonas(0,99));
+    }
+
     @PostMapping
     public ResponseEntity<PersonaSimpleOutputDto> addPersona(@RequestBody PersonaInputDto persona) {
+        URI location = URI.create("/persona");
+        return ResponseEntity.created(location).body(personaService.addPersona(persona));
+    }
+
+    @CrossOrigin(origins = "https://cdpn.io")
+    @PostMapping("/addperson")
+    public ResponseEntity<PersonaSimpleOutputDto> addPerson(@RequestBody PersonaInputDto persona){
         URI location = URI.create("/persona");
         return ResponseEntity.created(location).body(personaService.addPersona(persona));
     }

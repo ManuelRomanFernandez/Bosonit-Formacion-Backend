@@ -16,6 +16,6 @@ public class StudentFullOutputDto extends StudentSimpleOutputDto {
     String city;
     Boolean active;
     Date created_date;
-    String imagen;
+    String imagen_url;
     Date termination_date;
 }

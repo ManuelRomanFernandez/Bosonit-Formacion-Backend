@@ -158,7 +158,7 @@ public class PersonaServiceImpl implements PersonaService {
                 ? persona.getCreated_date()
                 : currentPersona.getCreated_date());
 
-        currentPersona.setImagen(persona.getImagen());
+        currentPersona.setImagen_url(persona.getImagen_url());
 
         currentPersona.setTermination_date(persona.getTermination_date());
 

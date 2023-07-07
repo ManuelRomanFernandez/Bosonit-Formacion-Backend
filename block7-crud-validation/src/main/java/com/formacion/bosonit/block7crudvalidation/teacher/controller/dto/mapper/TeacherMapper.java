@@ -19,7 +19,7 @@ public interface TeacherMapper {
     @Mapping(target = "city", source = "teacher.persona.city")
     @Mapping(target = "active", source = "teacher.persona.active")
     @Mapping(target = "created_date", source = "teacher.persona.created_date")
-    @Mapping(target = "imagen", source = "teacher.persona.imagen")
+    @Mapping(target = "imagen_url", source = "teacher.persona.imagen_url")
     @Mapping(target = "termination_date", source = "teacher.persona.termination_date")
     TeacherFullOutputDto teacherToTeacherOutputDto(Teacher teacher);
 

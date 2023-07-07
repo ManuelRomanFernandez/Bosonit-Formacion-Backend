@@ -35,7 +35,7 @@ public class Persona {
     @Column(name = "activo")
     private Boolean active;
     private Date created_date;
-    private String imagen;
+    private String imagen_url;
     private Date termination_date;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Student student;
@@ -109,7 +109,7 @@ public class Persona {
             this.created_date = personaInputDto.getCreated_date();
         }
 
-        this.imagen = personaInputDto.getImagen();
+        this.imagen_url = personaInputDto.getImagen_url();
 
         this.termination_date = personaInputDto.getTermination_date();
     }
