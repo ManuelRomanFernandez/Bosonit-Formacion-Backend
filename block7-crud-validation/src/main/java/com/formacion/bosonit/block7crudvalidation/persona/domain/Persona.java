@@ -5,7 +5,6 @@ import com.formacion.bosonit.block7crudvalidation.exception.UnprocessableEntityE
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,38 +12,37 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "persona")
+@NoArgsConstructor
 @Getter
 @Setter
 public class Persona {
     @Id
     @GeneratedValue
-    public Integer id_persona;
-    public String usuario;
-    public String password;
+    private Integer id_persona;
+    private String usuario;
+    private String password;
     @Column(name = "nombre")
-    public String name;
+    private String name;
     @Column(name = "apellido")
-    public String surname;
+    private String surname;
     @Column(name = "email_corporativo")
-    public String company_email;
+    private String company_email;
     @Column(name = "email_personal")
-    public String personal_email;
+    private String personal_email;
     @Column(name = "ciudad")
-    public String city;
+    private String city;
     @Column(name = "activo")
-    public Boolean active;
-    public Date created_date;
-    public String imagen;
-    public Date termination_date;
+    private Boolean active;
+    private Date created_date;
+    private String imagen_url;
+    private Date termination_date;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    public Student student;
+    private Student student;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    public Teacher teacher;
+    private Teacher teacher;
 
-    public Persona(PersonaInputDto personaInputDto) throws UnprocessableEntityException {
+    public Persona(PersonaInputDto personaInputDto) {
         this.id_persona = personaInputDto.getId_persona();
 
         if(personaInputDto.getUsuario() == null){
@@ -111,7 +109,7 @@ public class Persona {
             this.created_date = personaInputDto.getCreated_date();
         }
 
-        this.imagen = personaInputDto.getImagen();
+        this.imagen_url = personaInputDto.getImagen_url();
 
         this.termination_date = personaInputDto.getTermination_date();
     }

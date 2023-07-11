@@ -1,14 +1,11 @@
 package com.formacion.bosonit.block7crudvalidation.persona.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class PersonaInputDto {
     Integer id_persona;
     String usuario;
@@ -20,6 +17,6 @@ public class PersonaInputDto {
     String city;
     Boolean active;
     Date created_date;
-    String imagen;
+    String imagen_url;
     Date termination_date;
 }

@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface StudentSubjectMapper {
 
     @Mapping(target = "id_student", source = "studentSubject.student.id_student")
+    @Mapping(target = "id_subject", source = "studentSubject.subject.id_subject")
     StudentSubjectOutputDto studentSubjectToStudentSubjectOutputDto(StudentSubject studentSubject);
 
     StudentSubject studentSubjectInputDtoToStudentSubject(StudentSubjectInputDto studentSubjectInputDto);

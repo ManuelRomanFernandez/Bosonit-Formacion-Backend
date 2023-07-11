@@ -1,14 +1,15 @@
 package com.formacion.bosonit.block7crudvalidation.teacher.application;
 
+import com.formacion.bosonit.block7crudvalidation.exception.EntityNotFoundException;
 import com.formacion.bosonit.block7crudvalidation.persona.domain.Persona;
 import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepository;
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
+import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherFullOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.mapper.TeacherMapper;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherInputDto;
-import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
-import com.formacion.bosonit.block7crudvalidation.teacher.respository.TeacherRepository;
+import com.formacion.bosonit.block7crudvalidation.teacher.repository.TeacherRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -28,13 +29,13 @@ public class TeacherServiceImpl implements TeacherService {
     StudentRepository studentRepository;
 
     @Override
-    public TeacherOutputDto getFullTeacherById(String id_teacher) {
+    public TeacherFullOutputDto getFullTeacherById(String id_teacher) {
         return mapper.teacherToTeacherOutputDto(
                 teacherRepository.findAll()
                         .stream()
                         .filter(e -> e.getId_teacher().equals(id_teacher))
                         .findFirst()
-                        .orElseThrow());
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado")));
     }
 
     @Override
@@ -44,11 +45,11 @@ public class TeacherServiceImpl implements TeacherService {
                         .stream()
                         .filter(e -> e.getId_teacher().equals(id_teacher))
                         .findFirst()
-                        .orElseThrow());
+                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado")));
     }
 
     @Override
-    public Iterable<TeacherOutputDto> getAllFullTeachers(Integer pageNumber, Integer pageSize) {
+    public Iterable<TeacherFullOutputDto> getAllFullTeachers(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return teacherRepository.findAll(pageRequest)
                 .getContent()
@@ -68,7 +69,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public TeacherOutputDto addTeachers(TeacherInputDto teacherInputDto) {
+    public TeacherFullOutputDto addTeachers(TeacherInputDto teacherInputDto) {
         Persona persona = personaRepository.findById(teacherInputDto.getId_persona()).orElseThrow();
         Teacher teacher = mapper.teacherInputDtoToTeacher(teacherInputDto);
 
@@ -83,22 +84,23 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher currentTeacher = teacherRepository.findAll()
                 .stream()
                 .filter(e -> e.getId_teacher().equals(teacherInputDto.getId_teacher()))
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
-        if(teacherInputDto.getComments() != null)
-            currentTeacher.setComments(teacherInputDto.getComments());
+
+        currentTeacher.setComments(teacherInputDto.getComments());
 
         currentTeacher.setBranch(teacherInputDto.getBranch());
 
         if(teacherInputDto.getId_persona() != null){
             Persona updatedPersona = personaRepository
                     .findById(teacherInputDto.getId_persona())
-                    .orElseThrow();
+                    .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
 
             if(!Objects.equals(currentTeacher.getPersona().getId_persona(), teacherInputDto.getId_persona())){
                 Persona oldPersona = personaRepository
                         .findById(currentTeacher.getPersona().getId_persona())
-                        .orElseThrow();
+                        .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
 
 
                 oldPersona.setTeacher(null);
@@ -117,11 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .filter(e -> e.getId_teacher().equals(id_teacher))
                 .findFirst()
-                .orElseThrow();
-
-        personaRepository.findById(deleteTeacher.getPersona().getId_persona())
-                .orElseThrow()
-                .setTeacher(null);
+                .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
 
         studentRepository.findAll()
                 .forEach(student -> {
@@ -129,6 +127,10 @@ public class TeacherServiceImpl implements TeacherService {
                         student.setTeacher(null);
                     }
                 });
+
+        personaRepository.findById(deleteTeacher.getPersona().getId_persona())
+                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"))
+                .setTeacher(null);
 
         teacherRepository.delete(deleteTeacher);
     }

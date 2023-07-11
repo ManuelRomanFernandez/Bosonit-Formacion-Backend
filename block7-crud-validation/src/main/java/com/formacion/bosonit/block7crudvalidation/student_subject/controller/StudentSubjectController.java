@@ -1,6 +1,6 @@
 package com.formacion.bosonit.block7crudvalidation.student_subject.controller;
 
-import com.formacion.bosonit.block7crudvalidation.student_subject.application.StudentSubjectServiceImpl;
+import com.formacion.bosonit.block7crudvalidation.student_subject.application.StudentSubjectService;
 import com.formacion.bosonit.block7crudvalidation.student_subject.controller.dto.StudentSubjectInputDto;
 import com.formacion.bosonit.block7crudvalidation.student_subject.controller.dto.StudentSubjectOutputDto;
 import jakarta.validation.Valid;
@@ -9,40 +9,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/studentSubject")
 public class StudentSubjectController {
     @Autowired
-    StudentSubjectServiceImpl studentSubjectService;
+    StudentSubjectService studentSubjectService;
 
-    @GetMapping("/{id_student_subject}")
+    @GetMapping("/{id_student}/{id_subject}")
     public ResponseEntity<StudentSubjectOutputDto> getStudentSubjectById(
-            @Valid
-            @PathVariable String id_student_subject
+            @PathVariable String id_student,
+            @PathVariable String id_subject
     ){
-        try{
-            return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectById(id_student_subject));
-        } catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectByIds(id_student, id_subject));
     }
 
     @GetMapping("/student/{id_student}")
     public ResponseEntity<Iterable<StudentSubjectOutputDto>> getStudentSubjectsByStudentId(
-            @Valid
             @PathVariable String id_student
     ){
-        try{
-            return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectsByStudentId(id_student));
-        } catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectsByStudentId(id_student));
+    }
+
+    @GetMapping("/subject/{id_subject}")
+    public ResponseEntity<Iterable<StudentSubjectOutputDto>> getStudentSubjectsBySubjectId(
+            @PathVariable String id_subject
+    ){
+        return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectsBySubjectId(id_subject));
     }
 
     @GetMapping
     public ResponseEntity<Iterable<StudentSubjectOutputDto>> getAllStudentSubjects(
-            @Valid
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize
     ){
@@ -51,10 +49,20 @@ public class StudentSubjectController {
 
     @PostMapping
     public ResponseEntity<StudentSubjectOutputDto> addStudentSubject(
+            @Valid
             @RequestBody StudentSubjectInputDto studentSubjectInputDto
     ){
-        URI location = URI.create("/subject");
+        URI location = URI.create("/studentSubject");
         return ResponseEntity.created(location).body(studentSubjectService.addStudentSubject(studentSubjectInputDto));
+    }
+
+    @PostMapping("/{id_student}")
+    public void addMultipleStudentSubjectsByStudentId(
+            @Valid
+            @PathVariable String id_student,
+            @RequestParam List<String> subjects
+    ){
+        studentSubjectService.addMultipleStudentSubjectsByStudentId(id_student,subjects);
     }
 
     @PutMapping
@@ -62,14 +70,22 @@ public class StudentSubjectController {
             @Valid
             @RequestBody StudentSubjectInputDto studentSubjectInputDto
     ){
-        studentSubjectService.getStudentSubjectById(studentSubjectInputDto.getId_student_subject());
         return ResponseEntity.ok().body(studentSubjectService.updateStudentSubjectById(studentSubjectInputDto));
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteStudentSubjectById(@Valid @RequestParam String id_student_subject){
-        studentSubjectService.deleteStudentSubjectById(id_student_subject);
-        return ResponseEntity.ok().body("La asignatura con id " + id_student_subject + " ha sido eliminada");
+    public void deleteStudentSubjectById(
+            @RequestParam String id_student,
+            @RequestParam String id_subject
+    ){
+        studentSubjectService.deleteStudentSubjectById(id_student, id_subject);
     }
 
+    @DeleteMapping("/{id_student}")
+    public void deleteStudentSubjectsByStudentId(
+            @PathVariable String id_student,
+            @RequestParam List<String> subjects
+    ){
+        studentSubjectService.deleteStudentSubjectsByStudentId(id_student, subjects);
+    }
 }
