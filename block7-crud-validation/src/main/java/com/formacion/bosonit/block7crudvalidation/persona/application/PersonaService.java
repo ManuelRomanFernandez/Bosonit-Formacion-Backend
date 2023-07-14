@@ -5,6 +5,8 @@ import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.Persona
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaStudentSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherSimpleOutputDto;
 
+import java.util.HashMap;
+
 public interface PersonaService {
     PersonaSimpleOutputDto getPersonaById(Integer id);
     Object getFullPersonaById(Integer id);
@@ -15,6 +17,7 @@ public interface PersonaService {
     Iterable<PersonaSimpleOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize);
     Iterable<?> getAllFullPersonas(Integer pageNumber, Integer pageSize);
     TeacherSimpleOutputDto getTemplateTeacher(String id_teacher);
+    Iterable<PersonaSimpleOutputDto> getCustomQuery(HashMap<String, Object> options);
     PersonaSimpleOutputDto addPersona(PersonaInputDto persona);
     PersonaSimpleOutputDto updatePersona(PersonaInputDto persona, Integer id);
     void deletePersonaById(Integer id);
