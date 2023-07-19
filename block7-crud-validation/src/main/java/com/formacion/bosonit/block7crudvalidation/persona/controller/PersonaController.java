@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -68,6 +70,36 @@ public class PersonaController {
     @GetMapping("/getall")
     public ResponseEntity<Iterable<PersonaSimpleOutputDto>> getall(){
         return ResponseEntity.ok().body(personaService.getAllPersonas(0,99));
+    }
+
+    @GetMapping("/criteriaQuery")
+    public ResponseEntity<Iterable<PersonaSimpleOutputDto>> getCustomQuery(
+            @RequestParam int pageNumber,
+            @RequestParam(defaultValue = "10", required = false) int pageSize,
+            @RequestParam(required = false) String field,
+            @RequestParam(required = false) String value,
+            @RequestParam(defaultValue = "less", required = false) String operator,
+            @RequestParam(required = false) String orderBy
+            ){
+
+        HashMap<String, Object> options = new HashMap<>();
+
+        options.put("pageNumber", pageNumber);
+
+        options.put("pageSize", pageSize);
+
+        if (field != null)
+            options.put("field", field);
+
+        if (value != null)
+            options.put("value", value);
+
+        options.put("operator", operator);
+
+        if (orderBy != null)
+            options.put("orderBy", orderBy);
+
+        return ResponseEntity.ok().body(personaService.getCustomQuery(options));
     }
 
     @PostMapping

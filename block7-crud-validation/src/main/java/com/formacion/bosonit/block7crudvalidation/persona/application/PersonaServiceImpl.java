@@ -10,13 +10,26 @@ import com.formacion.bosonit.block7crudvalidation.persona.repository.PersonaRepo
 import com.formacion.bosonit.block7crudvalidation.student.repository.StudentRepository;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.repository.TeacherRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class PersonaServiceImpl implements PersonaService {
@@ -27,6 +40,9 @@ public class PersonaServiceImpl implements PersonaService {
     StudentRepository studentRepository;
     @Autowired
     TeacherRepository teacherRepository;
+    @PersistenceContext
+    EntityManager entityManager;
+
 
     @Override
     public PersonaSimpleOutputDto getPersonaById(Integer id) {
@@ -107,6 +123,47 @@ public class PersonaServiceImpl implements PersonaService {
         ResponseEntity<TeacherSimpleOutputDto> response = restTemplate.exchange(url, HttpMethod.GET, null, TeacherSimpleOutputDto.class);
 
         return response.getBody();
+    }
+
+    @Override
+    public Iterable<PersonaSimpleOutputDto> getCustomQuery(HashMap<String, Object> options) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
+        Root<Persona> root = query.from(Persona.class);
+
+        int pageNumber = (int) options.get("pageNumber");
+        int pageSize = (int) options.get("pageSize");
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        String field = options.get("field").toString();
+
+        if (options.get("field").equals("created_date")){
+            Date value = convertToDateViaSqlTimestamp(LocalDateTime.parse(options.get("value").toString()));
+
+            switch (options.get("operator").toString()) {
+                case "less" -> predicates.add(cb.lessThan(root.get(field), value));
+                case "greater" -> predicates.add(cb.greaterThan(root.get(field), value));
+            }
+
+            if (options.get("orderBy") != null)
+                query.orderBy(cb.asc(root.get(options.get("orderBy").toString())));
+        } else {
+            String value = options.get("value").toString();
+
+            predicates.add(cb.like(root.get(field),"%" + value + "%"));
+        }
+
+        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
+
+        return entityManager
+                .createQuery(query)
+                .setFirstResult(pageNumber * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList()
+                .stream()
+                .map(persona -> mapper.personaToPersonaOutDto(persona))
+                .toList();
     }
 
     @Override
@@ -200,5 +257,9 @@ public class PersonaServiceImpl implements PersonaService {
         } else {
             return mapper.personaToPersonaOutDto(persona);
         }
+    }
+
+    private Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+        return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }
