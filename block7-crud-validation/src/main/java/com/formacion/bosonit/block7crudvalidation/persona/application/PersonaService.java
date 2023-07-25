@@ -2,22 +2,20 @@ package com.formacion.bosonit.block7crudvalidation.persona.application;
 
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.*;
 import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaSimpleOutputDto;
-import com.formacion.bosonit.block7crudvalidation.persona.controller.dto.PersonaStudentSimpleOutputDto;
 import com.formacion.bosonit.block7crudvalidation.teacher.controller.dto.TeacherSimpleOutputDto;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface PersonaService {
     PersonaSimpleOutputDto getPersonaById(Integer id);
     Object getFullPersonaById(Integer id);
-    PersonaStudentSimpleOutputDto getPersonaStudentById(Integer id);
-    PersonaTeacherSimpleOutputDto getPersonaTeacherById(Integer id);
-    Iterable<PersonaSimpleOutputDto> getPersonaByUsuario(Integer pageNumber, Integer pageSize, String usuario);
-    Iterable<?> getFullPersonaStudentByUsuario(Integer pageNumber, Integer pageSize, String usuario);
-    Iterable<PersonaSimpleOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize);
-    Iterable<?> getAllFullPersonas(Integer pageNumber, Integer pageSize);
+    List<PersonaSimpleOutputDto> getPersonaByUsuario(Integer pageNumber, Integer pageSize, String usuario);
+    List<Object> getFullPersonasByUsuario(Integer pageNumber, Integer pageSize, String usuario);
+    List<PersonaSimpleOutputDto> getAllPersonas(Integer pageNumber, Integer pageSize);
+    List<Object> getAllFullPersonas(Integer pageNumber, Integer pageSize);
     TeacherSimpleOutputDto getTemplateTeacher(String id_teacher);
-    Iterable<PersonaSimpleOutputDto> getCustomQuery(HashMap<String, Object> options);
+    List<PersonaSimpleOutputDto> getCustomQuery(HashMap<String, Object> options);
     PersonaSimpleOutputDto addPersona(PersonaInputDto persona);
     PersonaSimpleOutputDto updatePersona(PersonaInputDto persona, Integer id);
     void deletePersonaById(Integer id);

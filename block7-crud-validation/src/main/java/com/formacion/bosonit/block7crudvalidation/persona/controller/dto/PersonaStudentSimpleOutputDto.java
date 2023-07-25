@@ -5,9 +5,9 @@ import lombok.*;
 @Getter
 @Setter
 public class PersonaStudentSimpleOutputDto extends PersonaSimpleOutputDto {
-    String id_student;
-    Integer num_hours_week;
-    String comments;
-    String id_student_teacher;
-    String branch;
+    private String id_student;
+    private Integer num_hours_week;
+    private String comments;
+    private String id_student_teacher;
+    private String branch;
 }

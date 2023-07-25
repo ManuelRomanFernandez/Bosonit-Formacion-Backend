@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -27,6 +28,8 @@ public class TeacherServiceImpl implements TeacherService {
     PersonaRepository personaRepository;
     @Autowired
     StudentRepository studentRepository;
+    private static final String ID_TEACHER_ERROR = "No existe el profesor con el id indicado";
+    private static final String ID_PERSON_ERROR = "No existe la persona con el id indicado";
 
     @Override
     public TeacherFullOutputDto getFullTeacherById(String id_teacher) {
@@ -35,7 +38,7 @@ public class TeacherServiceImpl implements TeacherService {
                         .stream()
                         .filter(e -> e.getId_teacher().equals(id_teacher))
                         .findFirst()
-                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado")));
+                        .orElseThrow(() -> new EntityNotFoundException(ID_TEACHER_ERROR)));
     }
 
     @Override
@@ -45,11 +48,11 @@ public class TeacherServiceImpl implements TeacherService {
                         .stream()
                         .filter(e -> e.getId_teacher().equals(id_teacher))
                         .findFirst()
-                        .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado")));
+                        .orElseThrow(() -> new EntityNotFoundException(ID_TEACHER_ERROR)));
     }
 
     @Override
-    public Iterable<TeacherFullOutputDto> getAllFullTeachers(Integer pageNumber, Integer pageSize) {
+    public List<TeacherFullOutputDto> getAllFullTeachers(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return teacherRepository.findAll(pageRequest)
                 .getContent()
@@ -59,7 +62,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Iterable<TeacherSimpleOutputDto> getAllSimpleTeachers(Integer pageNumber, Integer pageSize) {
+    public List<TeacherSimpleOutputDto> getAllSimpleTeachers(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return teacherRepository.findAll(pageRequest)
                 .getContent()
@@ -85,7 +88,7 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .filter(e -> e.getId_teacher().equals(teacherInputDto.getId_teacher()))
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_TEACHER_ERROR));
 
 
         currentTeacher.setComments(teacherInputDto.getComments());
@@ -95,12 +98,12 @@ public class TeacherServiceImpl implements TeacherService {
         if(teacherInputDto.getId_persona() != null){
             Persona updatedPersona = personaRepository
                     .findById(teacherInputDto.getId_persona())
-                    .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
+                    .orElseThrow(() -> new EntityNotFoundException(ID_PERSON_ERROR));
 
             if(!Objects.equals(currentTeacher.getPersona().getId_persona(), teacherInputDto.getId_persona())){
                 Persona oldPersona = personaRepository
                         .findById(currentTeacher.getPersona().getId_persona())
-                        .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"));
+                        .orElseThrow(() -> new EntityNotFoundException(ID_PERSON_ERROR));
 
 
                 oldPersona.setTeacher(null);
@@ -119,7 +122,7 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .filter(e -> e.getId_teacher().equals(id_teacher))
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("No existe el profesor con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_TEACHER_ERROR));
 
         studentRepository.findAll()
                 .forEach(student -> {
@@ -129,7 +132,7 @@ public class TeacherServiceImpl implements TeacherService {
                 });
 
         personaRepository.findById(deleteTeacher.getPersona().getId_persona())
-                .orElseThrow(() -> new EntityNotFoundException("No existe la persona con el id indicado"))
+                .orElseThrow(() -> new EntityNotFoundException(ID_PERSON_ERROR))
                 .setTeacher(null);
 
         teacherRepository.delete(deleteTeacher);

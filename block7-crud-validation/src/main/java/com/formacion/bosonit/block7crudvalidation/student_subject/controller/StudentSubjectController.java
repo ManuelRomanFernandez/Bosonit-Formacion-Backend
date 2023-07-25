@@ -26,21 +26,21 @@ public class StudentSubjectController {
     }
 
     @GetMapping("/student/{id_student}")
-    public ResponseEntity<Iterable<StudentSubjectOutputDto>> getStudentSubjectsByStudentId(
+    public ResponseEntity<List<StudentSubjectOutputDto>> getStudentSubjectsByStudentId(
             @PathVariable String id_student
     ){
         return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectsByStudentId(id_student));
     }
 
     @GetMapping("/subject/{id_subject}")
-    public ResponseEntity<Iterable<StudentSubjectOutputDto>> getStudentSubjectsBySubjectId(
+    public ResponseEntity<List<StudentSubjectOutputDto>> getStudentSubjectsBySubjectId(
             @PathVariable String id_subject
     ){
         return ResponseEntity.ok().body(studentSubjectService.getStudentSubjectsBySubjectId(id_subject));
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<StudentSubjectOutputDto>> getAllStudentSubjects(
+    public ResponseEntity<List<StudentSubjectOutputDto>> getAllStudentSubjects(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize
     ){

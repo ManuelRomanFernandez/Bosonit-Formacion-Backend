@@ -11,21 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubjectServiceImpl implements SubjectService{
     SubjectMapper mapper = Mappers.getMapper(SubjectMapper.class);
     @Autowired
     SubjectRepository subjectRepository;
+    private static final String ID_SUBJECT_ERROR = "No existe la asignatura con el id indicado";
+
     @Override
-    public SubjectOutputDto getSubjectById(String id_subject) {
+    public SubjectOutputDto getSubjectById(String idSubject) {
         return mapper.subjectToSubjectOutputDto(
-                subjectRepository.findById(id_subject)
-                        .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"))
+                subjectRepository.findById(idSubject)
+                        .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR))
         );
     }
 
     @Override
-    public Iterable<SubjectOutputDto> getAllSubjects(Integer pageNumber, Integer pageSize) {
+    public List<SubjectOutputDto> getAllSubjects(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return subjectRepository.findAll(pageRequest)
                 .getContent()
@@ -44,7 +48,7 @@ public class SubjectServiceImpl implements SubjectService{
     public SubjectOutputDto updateSubjectById(SubjectInputDto subjectInputDto) {
         Subject currentSubject = subjectRepository
                 .findById(subjectInputDto.getId_subject())
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
         currentSubject.setName(subjectInputDto.getName());
 
@@ -54,7 +58,7 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public void deleteSubjectById(String subject_id) {
-        subjectRepository.deleteById(subject_id);
+    public void deleteSubjectById(String id_subject) {
+        subjectRepository.deleteById(id_subject);
     }
 }

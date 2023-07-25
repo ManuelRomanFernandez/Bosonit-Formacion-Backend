@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/subject")
@@ -22,7 +23,7 @@ public class SubjectController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<SubjectOutputDto>> getAllSubjects(
+    public ResponseEntity<List<SubjectOutputDto>> getAllSubjects(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize
     ){

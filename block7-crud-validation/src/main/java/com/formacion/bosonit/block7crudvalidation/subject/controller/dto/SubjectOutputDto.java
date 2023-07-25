@@ -1,14 +1,11 @@
 package com.formacion.bosonit.block7crudvalidation.subject.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class SubjectOutputDto {
-    String id_subject;
-    String name;
-    String description;
+    private String id_subject;
+    private String name;
+    private String description;
 }

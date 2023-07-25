@@ -18,7 +18,7 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/{id_student}")
-    public ResponseEntity<?> getStudentById(
+    public ResponseEntity<Object> getStudentById(
             @PathVariable String id_student,
             @RequestParam(defaultValue = "simple", required = false) String outputType
     ){
@@ -28,7 +28,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<?>> getAllStudents(
+    public ResponseEntity<Object> getAllStudents(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType
@@ -46,7 +46,6 @@ public class StudentController {
 
     @PutMapping
     public ResponseEntity<StudentSimpleOutputDto> updateStudentById(@Valid @RequestBody StudentInputDto studentInputDto){
-        studentService.getSimpleStudentById(studentInputDto.getId_student());
         return ResponseEntity.ok().body(studentService.updateStudentById(studentInputDto));
     }
 

@@ -1,17 +1,14 @@
 package com.formacion.bosonit.block7crudvalidation.teacher.controller.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class TeacherInputDto {
-    String id_teacher;
-    Integer id_persona;
-    String comments;
+    private String id_teacher;
+    private Integer id_persona;
+    private String comments;
     @NotNull(message = "branch no puede ser null")
-    String branch = "N/A";
+    private String branch = "N/A";
 }

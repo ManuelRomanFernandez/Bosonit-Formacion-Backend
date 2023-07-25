@@ -28,5 +28,5 @@ public interface StudentMapper {
     @Mapping(target = "id_teacher", source = "student.teacher.id_teacher")
     StudentSimpleOutputDto studentToStudentSimpleOutputDto(Student student);
 
-    Student studentInputDtoToTeacher(StudentInputDto studentInputDto);
+    Student studentInputDtoToStudent(StudentInputDto studentInputDto);
 }

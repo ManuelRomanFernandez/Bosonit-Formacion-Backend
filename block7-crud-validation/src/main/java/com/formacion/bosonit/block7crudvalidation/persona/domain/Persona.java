@@ -5,6 +5,7 @@ import com.formacion.bosonit.block7crudvalidation.exception.UnprocessableEntityE
 import com.formacion.bosonit.block7crudvalidation.teacher.domain.Teacher;
 import com.formacion.bosonit.block7crudvalidation.student.domain.Student;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +20,7 @@ import java.util.Date;
 public class Persona {
     @Id
     @GeneratedValue
-    private Integer id_persona;
+    private int id_persona;
     private String usuario;
     private String password;
     @Column(name = "nombre")
@@ -42,8 +43,10 @@ public class Persona {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Teacher teacher;
 
+
     public Persona(PersonaInputDto personaInputDto) {
-        this.id_persona = personaInputDto.getId_persona();
+        if (personaInputDto.getId_persona() != null)
+            this.id_persona = personaInputDto.getId_persona();
 
         if(personaInputDto.getUsuario() == null){
             throw new UnprocessableEntityException("Usuario no puede ser nulo");
@@ -113,4 +116,5 @@ public class Persona {
 
         this.termination_date = personaInputDto.getTermination_date();
     }
+
 }
