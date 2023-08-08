@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/teacher")
@@ -18,7 +19,7 @@ public class TeacherController {
     TeacherService teacherService;
 
     @GetMapping("/{id_teacher}")
-    public ResponseEntity<?> getTeacherById(
+    public ResponseEntity<Object> getTeacherById(
             @PathVariable String id_teacher,
             @RequestParam(defaultValue = "simple", required = false) String outputType
     ){
@@ -28,7 +29,7 @@ public class TeacherController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<?>> getAllTeachers(
+    public ResponseEntity<Object> getAllTeachers(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType
@@ -51,8 +52,8 @@ public class TeacherController {
     }
 
     @DeleteMapping
-    public void deleteTeacherById(@RequestParam String id_teacher){
-        teacherService.deleteTeacherById(id_teacher);
+    public void deleteTeacherById(@RequestParam String idTeacher){
+        teacherService.deleteTeacherById(idTeacher);
     }
 
 }

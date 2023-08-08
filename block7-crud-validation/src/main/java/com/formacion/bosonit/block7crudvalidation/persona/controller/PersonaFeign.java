@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(url = "http://localhost:8081/teacher", name = "crudValidationFeign")
 public interface PersonaFeign {
-    @GetMapping("/{id_teacher}")
-    ResponseEntity<?> getTeacherById(
-            @PathVariable String id_teacher,
+    @GetMapping("/{idTeacher}")
+    ResponseEntity<Object> getTeacherById(
+            @PathVariable String idTeacher,
             @RequestParam(defaultValue = "simple", required = false) String outputType
     );
 }

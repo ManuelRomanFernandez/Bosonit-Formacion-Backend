@@ -8,9 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping({"/persona", ""})
@@ -21,7 +20,7 @@ public class PersonaController {
     PersonaService personaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPersonaById(
+    public ResponseEntity<Object> getPersonaById(
             @PathVariable Integer id,
             @RequestParam(defaultValue = "simple", required = false) String outputType)
     {
@@ -31,20 +30,20 @@ public class PersonaController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<?> getPersonaByName(
+    public ResponseEntity<Object> getPersonaByUsuario(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType,
             @PathVariable String name)
     {
         return outputType.equalsIgnoreCase("full")
-                ? ResponseEntity.ok().body(personaService.getFullPersonaStudentByUsuario(pageNumber, pageSize, name))
+                ? ResponseEntity.ok().body(personaService.getFullPersonasByUsuario(pageNumber, pageSize, name))
                 : ResponseEntity.ok().body(personaService.getPersonaByUsuario(pageNumber, pageSize, name));
 
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllPersonas(
+    public ResponseEntity<Object> getAllPersonas(
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "4", required = false) int pageSize,
             @RequestParam(defaultValue = "simple", required = false) String outputType
@@ -56,7 +55,7 @@ public class PersonaController {
     }
 
     @GetMapping("/profesor/{id_teacher}")
-    public ResponseEntity<?> getFeignTeacherById(
+    public ResponseEntity<Object> getFeignTeacherById(
             @PathVariable String id_teacher,
             @RequestParam(defaultValue = "simple", required = false) String outputType,
             @RequestParam(defaultValue = "feign", required = false) String method
@@ -68,12 +67,12 @@ public class PersonaController {
 
     @CrossOrigin(origins = "https://cdpn.io")
     @GetMapping("/getall")
-    public ResponseEntity<Iterable<PersonaSimpleOutputDto>> getall(){
+    public ResponseEntity<List<PersonaSimpleOutputDto>> getall(){
         return ResponseEntity.ok().body(personaService.getAllPersonas(0,99));
     }
 
     @GetMapping("/criteriaQuery")
-    public ResponseEntity<Iterable<PersonaSimpleOutputDto>> getCustomQuery(
+    public ResponseEntity<List<PersonaSimpleOutputDto>> getCustomQuery(
             @RequestParam int pageNumber,
             @RequestParam(defaultValue = "10", required = false) int pageSize,
             @RequestParam(required = false) String field,

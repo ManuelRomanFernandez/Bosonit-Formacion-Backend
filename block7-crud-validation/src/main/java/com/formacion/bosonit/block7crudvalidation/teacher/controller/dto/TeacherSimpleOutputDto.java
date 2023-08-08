@@ -1,15 +1,12 @@
 package com.formacion.bosonit.block7crudvalidation.teacher.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class TeacherSimpleOutputDto {
-    String id_teacher;
-    Integer id_persona;
-    String comments;
-    String branch;
+    private String id_teacher;
+    private Integer id_persona;
+    private String comments;
+    private String branch;
 }

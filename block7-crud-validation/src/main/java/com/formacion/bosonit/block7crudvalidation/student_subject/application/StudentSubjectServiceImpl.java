@@ -29,27 +29,30 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     StudentRepository studentRepository;
     @Autowired
     SubjectRepository subjectRepository;
+    private static final String ID_SUBJECT_STUDENT_ERROR = "No existe el estudiante_asignatura con los ids proporcionados";
+    private static final String ID_STUDENT_ERROR = "No existe el estudiante con el id indicado";
+    private static final String ID_SUBJECT_ERROR = "No existe la asignatura con el id indicado";
 
     @Override
     public StudentSubjectOutputDto getStudentSubjectByIds(String id_student, String id_subject) {
-        studentRepository
+        Student student = studentRepository
                 .findById(id_student)
-                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_STUDENT_ERROR));
 
-        subjectRepository
+        Subject subject = subjectRepository
                 .findById(id_subject)
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
-        StudentSubjectCompositeKey key = new StudentSubjectCompositeKey(id_student, id_subject);
+        StudentSubjectCompositeKey key = new StudentSubjectCompositeKey(student.getId_student(), subject.getId_subject());
 
         return mapper.studentSubjectToStudentSubjectOutputDto(
                 studentSubjectRepository
                         .findById(key)
-                        .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante_asignatura con los ids proporcionados")));
+                        .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_STUDENT_ERROR)));
     }
 
     @Override
-    public Iterable<StudentSubjectOutputDto> getStudentSubjectsByStudentId(String id_student) {
+    public List<StudentSubjectOutputDto> getStudentSubjectsByStudentId(String id_student) {
         return studentSubjectRepository.findAll()
                 .stream()
                 .filter(e -> e.getStudent().getId_student().equals(id_student))
@@ -58,7 +61,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     }
 
     @Override
-    public Iterable<StudentSubjectOutputDto> getStudentSubjectsBySubjectId(String id_subject) {
+    public List<StudentSubjectOutputDto> getStudentSubjectsBySubjectId(String id_subject) {
         return studentSubjectRepository.findAll()
                 .stream()
                 .filter(e -> e.getSubject().getId_subject().equals(id_subject))
@@ -67,7 +70,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     }
 
     @Override
-    public Iterable<StudentSubjectOutputDto> getAllStudentSubjects(Integer pageNumber, Integer pageSize) {
+    public List<StudentSubjectOutputDto> getAllStudentSubjects(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return studentSubjectRepository.findAll(pageRequest)
                 .getContent()
@@ -81,10 +84,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         StudentSubject studentSubject = mapper.studentSubjectInputDtoToStudentSubject(studentSubjectInputDto);
 
         Student student = studentRepository.findById(studentSubjectInputDto.getId_student())
-                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_STUDENT_ERROR));
 
         Subject subject = subjectRepository.findById(studentSubjectInputDto.getId_subject())
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
         student.getStudentSubjects().add(studentSubject);
         studentSubject.setStudent(student);
@@ -115,17 +118,17 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     public StudentSubjectOutputDto updateStudentSubjectById(StudentSubjectInputDto studentSubjectInputDto) {
         Student inputStudent = studentRepository
                 .findById(studentSubjectInputDto.getId_student())
-                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_STUDENT_ERROR));
 
         Subject inputSubject = subjectRepository
                 .findById(studentSubjectInputDto.getId_subject())
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
         StudentSubjectCompositeKey key = new StudentSubjectCompositeKey(inputStudent.getId_student(), inputSubject.getId_subject());
 
         StudentSubject currentStudentSubject = studentSubjectRepository
                 .findById(key)
-                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante_asignatura con los ids proporcionados"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_STUDENT_ERROR));
 
         currentStudentSubject.setComments(studentSubjectInputDto.getComments());
 
@@ -140,7 +143,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             )){
                 Subject oldSubject = subjectRepository
                         .findById(currentStudentSubject.getSubject().getId_subject())
-                        .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                        .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
                 oldSubject.getStudentSubjects().remove(currentStudentSubject);
             }
@@ -158,7 +161,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             ){
                 Student oldStudent = studentRepository
                         .findById(currentStudentSubject.getStudent().getId_student())
-                        .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+                        .orElseThrow(() -> new EntityNotFoundException(ID_STUDENT_ERROR));
 
                 oldStudent.getStudentSubjects().remove(currentStudentSubject);
             }
@@ -174,27 +177,27 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
     @Override
     public void deleteStudentSubjectById(String id_student, String id_subject) {
-        studentRepository
+        Student student = studentRepository
                 .findById(id_student)
-                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_STUDENT_ERROR));
 
-        subjectRepository
+        Subject subject = subjectRepository
                 .findById(id_subject)
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
-        StudentSubjectCompositeKey key = new StudentSubjectCompositeKey(id_student, id_subject);
+        StudentSubjectCompositeKey key = new StudentSubjectCompositeKey(student.getId_student(), subject.getId_subject());
 
         StudentSubject deleteStudentSubject = studentSubjectRepository
                 .findById(key)
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"));
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR));
 
         studentRepository.findById(id_student)
-                .orElseThrow(() -> new EntityNotFoundException("No existe el estudiante con el id indicado"))
+                .orElseThrow(() -> new EntityNotFoundException(ID_STUDENT_ERROR))
                 .getStudentSubjects()
                 .remove(deleteStudentSubject);
 
         subjectRepository.findById(id_subject)
-                .orElseThrow(() -> new EntityNotFoundException("No existe la asignatura con el id indicado"))
+                .orElseThrow(() -> new EntityNotFoundException(ID_SUBJECT_ERROR))
                 .getStudentSubjects()
                 .remove(deleteStudentSubject);
 

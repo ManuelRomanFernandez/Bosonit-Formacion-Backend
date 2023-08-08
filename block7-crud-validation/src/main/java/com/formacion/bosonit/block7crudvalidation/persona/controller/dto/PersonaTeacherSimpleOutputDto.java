@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 public class PersonaTeacherSimpleOutputDto extends PersonaSimpleOutputDto {
-    String id_teacher;
-    String comments;
-    String branch;
+    private String id_teacher;
+    private String comments;
+    private String branch;
 }

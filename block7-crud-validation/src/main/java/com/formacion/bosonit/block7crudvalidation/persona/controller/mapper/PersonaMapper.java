@@ -10,8 +10,6 @@ import org.mapstruct.Mapping;
 @Mapper(uses = Persona.class)
 public interface PersonaMapper {
 
-    //@Mapping(target = "id_student", source = "persona.student.id_student")
-    //@Mapping(target = "id_teacher", source = "persona.teacher.id_teacher")
     PersonaSimpleOutputDto personaToPersonaOutDto(Persona persona);
 
     @Mapping(target = "id_student", source = "persona.student.id_student")
