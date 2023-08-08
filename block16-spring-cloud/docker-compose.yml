@@ -1,0 +1,84 @@
+version: "3.2"
+services:
+
+  db:
+    container_name: db
+    image: mysql:latest
+    restart: always
+    networks:
+      - cloud_network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./database-script.sql:/docker-entrypoint-initdb.d/database-script.sql
+
+  backend-service:
+    container_name: backend-service
+    build: /backend/
+    networks:
+      - cloud_network
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 8081
+      MYSQL_HOST: db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_URI: http://eureka-server:8761/eureka
+    ports:
+      - "8081:8081"
+
+  front-service:
+    container_name: front-service
+    build: /backend-front/
+    networks:
+      - cloud_network
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 8082
+      MYSQL_HOST: db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_URI: http://eureka-server:8761/eureka
+    ports:
+      - "8082:8082"
+
+  gateway-service:
+    container_name: gateway-service
+    build: /api-gateway/
+    networks:
+      - cloud_network
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 8080
+      EUREKA_URI: http://eureka-server:8761/eureka
+    ports:
+      - "8080:8080"
+
+  eureka-server:
+    container_name: eureka-server
+    build: /eureka-naming-server/
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - cloud_network
+    environment:
+      SERVER_PORT: 8761
+    ports:
+      - "8761:8761"
+
+networks:
+  cloud_network:
+    driver: bridge

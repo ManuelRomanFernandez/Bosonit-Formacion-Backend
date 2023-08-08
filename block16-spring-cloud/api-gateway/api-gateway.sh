@@ -1,0 +1,1 @@
+java -jar ./tmp/gatewary-service.jar
