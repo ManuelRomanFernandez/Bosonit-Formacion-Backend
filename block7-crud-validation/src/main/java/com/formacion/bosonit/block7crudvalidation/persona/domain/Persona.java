@@ -42,6 +42,7 @@ public class Persona {
     private Student student;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Teacher teacher;
+    private boolean admin;
 
 
     public Persona(PersonaInputDto personaInputDto) {
