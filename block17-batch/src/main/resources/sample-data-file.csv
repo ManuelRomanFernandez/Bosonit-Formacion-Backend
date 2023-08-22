@@ -1,0 +1,951 @@
+Provincia;Temperatura;Fecha
+La Rioja;-4;2018-12-8
+Guadalajara;-18;2018-11-24
+Santa Cruz de Tenerife;-39;2018-2-2
+Huelva;14;2018-6-9
+Las Palmas;-16;2018-7-25
+Toledo;59;2018-8-9
+Lleida;52;2018-11-12
+Lugo;-40;2018-9-10
+Pontevedra;9;2018-7-22
+Barcelona;9;2018-2-10
+Asturias;-23;2018-4-3
+Valladolid;56;2018-4-1
+Cadiz;53;2018-10-22
+Tarragona;-37;2018-4-19
+Teruel;27;2018-11-13
+Alicante;-25;2018-11-3
+Soria;-31;2018-10-24
+Ciudad Real;57;2018-5-8
+Zaragoza;-8;2018-6-3
+Salamanca;16;2018-12-24
+Albacete;1;2018-1-10
+Girona;56;2018-4-17
+Navarra;-20;2018-11-7
+Palencia;-23;2018-1-3
+Madrid;19;2018-11-20
+Cuenca;-18;2018-6-7
+Badajoz;15;2018-5-24
+Vizcaya;-13;2018-7-17
+Valencia;41;2018-7-27
+Leon;-34;2018-2-19
+Caceres;-6;2018-6-26
+Ourense;-25;2018-11-21
+Almeria;-21;2018-8-12
+Burgos;-21;2018-7-23
+Guipuzcoa;10;2018-9-20
+Jaen;36;2018-5-3
+Sevilla;-21;2018-5-12
+Avila;39;2018-9-19
+La Rioja;1;2018-8-4
+Guadalajara;9;2018-7-2
+Santa Cruz de Tenerife;-19;2018-7-27
+Huelva;22;2018-6-11
+Las Palmas;26;2018-10-12
+Toledo;42;2018-4-11
+Lleida;54;2018-11-7
+Lugo;36;2018-6-18
+Pontevedra;1;2018-7-4
+Barcelona;-3;2018-5-13
+Asturias;22;2018-1-3
+Valladolid;41;2018-8-13
+Cadiz;26;2018-1-27
+Tarragona;34;2018-5-16
+Teruel;58;2018-3-26
+Alicante;53;2018-5-5
+Soria;54;2018-2-17
+Ciudad Real;-25;2018-11-17
+Zaragoza;-3;2018-9-13
+Salamanca;15;2018-2-10
+Albacete;27;2018-1-1
+Girona;22;2018-8-16
+Navarra;-19;2018-10-7
+Palencia;29;2018-9-25
+Madrid;44;2018-2-14
+Cuenca;-34;2018-5-13
+Badajoz;-28;2018-10-25
+Vizcaya;4;2018-10-27
+Valencia;4;2018-2-13
+Leon;45;2018-11-10
+Caceres;2;2018-6-16
+Ourense;-13;2018-11-25
+Almeria;-10;2018-4-22
+Burgos;7;2018-12-13
+Guipuzcoa;54;2018-10-1
+Jaen;55;2018-11-18
+Sevilla;34;2018-4-25
+Avila;60;2018-9-2
+La Rioja;36;2018-12-11
+Guadalajara;16;2018-5-7
+Santa Cruz de Tenerife;-21;2018-4-13
+Huelva;14;2018-10-9
+Las Palmas;35;2018-1-23
+Toledo;45;2018-7-14
+Lleida;-21;2018-9-3
+Lugo;28;2018-6-12
+Pontevedra;-8;2018-9-15
+Barcelona;-31;2018-12-24
+Asturias;-14;2018-9-22
+Valladolid;22;2018-11-24
+Cadiz;17;2018-7-26
+Tarragona;56;2018-5-9
+Teruel;57;2018-10-5
+Alicante;0;2018-12-8
+Soria;24;2018-9-15
+Ciudad Real;58;2018-2-1
+Zaragoza;-27;2018-7-6
+Salamanca;54;2018-1-16
+Albacete;60;2018-5-7
+Girona;-37;2018-12-12
+Navarra;50;2018-1-18
+Palencia;28;2018-2-11
+Madrid;-38;2018-7-9
+Cuenca;56;2018-9-10
+Badajoz;30;2018-5-25
+Vizcaya;-26;2018-8-4
+Valencia;21;2018-11-25
+Leon;-8;2018-8-16
+Caceres;-35;2018-11-10
+Ourense;-14;2018-4-18
+Almeria;-15;2018-11-18
+Burgos;12;2018-6-20
+Guipuzcoa;12;2018-12-21
+Jaen;34;2018-5-18
+Sevilla;-3;2018-7-23
+Avila;21;2018-3-25
+La Rioja;39;2018-9-17
+Guadalajara;11;2018-10-13
+Santa Cruz de Tenerife;48;2018-3-22
+Huelva;-20;2018-11-4
+Las Palmas;41;2018-1-1
+Toledo;4;2018-5-23
+Lleida;12;2018-6-24
+Lugo;-28;2018-4-9
+Pontevedra;59;2018-11-11
+Barcelona;-16;2018-4-20
+Asturias;36;2018-8-4
+Valladolid;7;2018-7-1
+Cadiz;35;2018-7-1
+Tarragona;41;2018-1-22
+Teruel;34;2018-4-2
+Alicante;30;2018-3-26
+Soria;6;2018-7-21
+Ciudad Real;-15;2018-9-23
+Zaragoza;3;2018-7-3
+Salamanca;-19;2018-1-8
+Albacete;-25;2018-2-12
+Girona;-19;2018-7-3
+Navarra;-30;2018-8-10
+Palencia;-36;2018-8-23
+Madrid;-2;2018-5-19
+Cuenca;37;2018-2-16
+Badajoz;-11;2018-3-19
+Vizcaya;-6;2018-6-4
+Valencia;-22;2018-5-12
+Leon;-33;2018-11-1
+Caceres;16;2018-10-13
+Ourense;56;2018-11-21
+Almeria;-32;2018-3-22
+Burgos;26;2018-12-16
+Guipuzcoa;-15;2018-8-21
+Jaen;58;2018-8-18
+Sevilla;16;2018-8-11
+Avila;45;2018-5-3
+La Rioja;60;2018-9-14
+Guadalajara;-20;2018-11-26
+Santa Cruz de Tenerife;16;2018-12-16
+Huelva;-25;2018-2-10
+Las Palmas;2;2018-6-18
+Toledo;5;2018-3-13
+Lleida;38;2018-9-18
+Lugo;57;2018-7-15
+Pontevedra;15;2018-12-12
+Barcelona;9;2018-3-3
+Asturias;19;2018-5-4
+Valladolid;13;2018-10-23
+Cadiz;10;2018-7-6
+Tarragona;3;2018-12-9
+Teruel;-10;2018-9-26
+Alicante;9;2018-12-12
+Soria;21;2018-6-22
+Ciudad Real;49;2018-5-9
+Zaragoza;16;2018-7-4
+Salamanca;-9;2018-9-1
+Albacete;50;2018-3-8
+Girona;28;2018-3-8
+Navarra;32;2018-9-4
+Palencia;55;2018-8-1
+Madrid;-35;2018-7-27
+Cuenca;-21;2018-4-25
+Badajoz;-29;2018-3-8
+Vizcaya;36;2018-6-15
+Valencia;-3;2018-6-18
+Leon;48;2018-9-13
+Caceres;53;2018-6-25
+Ourense;38;2018-4-5
+Almeria;35;2018-9-15
+Burgos;-4;2018-3-17
+Guipuzcoa;50;2018-7-15
+Jaen;-2;2018-7-15
+Sevilla;-37;2018-4-23
+Avila;5;2018-6-2
+La Rioja;31;2018-7-2
+Guadalajara;27;2018-6-19
+Santa Cruz de Tenerife;-20;2018-2-8
+Huelva;-27;2018-9-19
+Las Palmas;-20;2018-7-15
+Toledo;18;2018-10-20
+Lleida;-40;2018-1-17
+Lugo;51;2018-12-17
+Pontevedra;-35;2018-12-25
+Barcelona;-35;2018-3-21
+Asturias;-30;2018-3-9
+Valladolid;18;2018-12-6
+Cadiz;48;2018-1-13
+Tarragona;41;2018-3-3
+Teruel;11;2018-8-24
+Alicante;55;2018-1-15
+Soria;15;2018-3-13
+Ciudad Real;8;2018-3-19
+Zaragoza;11;2018-1-19
+Salamanca;49;2018-8-17
+Albacete;-39;2018-1-12
+Girona;34;2018-7-5
+Navarra;20;2018-3-4
+Palencia;-31;2018-12-8
+Madrid;-37;2018-11-22
+Cuenca;-17;2018-8-9
+Badajoz;46;2018-1-26
+Vizcaya;-23;2018-1-20
+Valencia;30;2018-1-23
+Leon;51;2018-6-22
+Caceres;29;2018-9-10
+Ourense;5;2018-6-24
+Almeria;-2;2018-8-6
+Burgos;37;2018-4-13
+Guipuzcoa;-6;2018-4-26
+Jaen;5;2018-1-17
+Sevilla;32;2018-10-8
+Avila;-14;2018-6-2
+La Rioja;34;2018-12-1
+Guadalajara;44;2018-12-12
+Santa Cruz de Tenerife;-2;2018-6-5
+Huelva;-26;2018-4-17
+Las Palmas;-38;2018-8-8
+Toledo;-27;2018-9-13
+Lleida;49;2018-2-1
+Lugo;50;2018-6-18
+Pontevedra;50;2018-2-10
+Barcelona;-12;2018-6-26
+Asturias;42;2018-5-3
+Valladolid;10;2018-12-18
+Cadiz;-20;2018-10-23
+Tarragona;-20;2018-12-19
+Teruel;-19;2018-12-4
+Alicante;51;2018-3-25
+Soria;8;2018-3-22
+Ciudad Real;16;2018-1-1
+Zaragoza;18;2018-10-4
+Salamanca;31;2018-9-20
+Albacete;29;2018-5-6
+Girona;32;2018-1-14
+Navarra;-1;2018-5-4
+Palencia;56;2018-3-14
+Madrid;28;2018-11-2
+Cuenca;-20;2018-9-6
+Badajoz;14;2018-8-26
+Vizcaya;8;2018-1-14
+Valencia;-17;2018-8-25
+Leon;8;2018-7-26
+Caceres;-39;2018-7-6
+Ourense;25;2018-4-20
+Almeria;30;2018-5-8
+Burgos;6;2018-11-6
+Guipuzcoa;-33;2018-5-5
+Jaen;21;2018-8-13
+Sevilla;-1;2018-10-8
+Avila;41;2018-7-22
+La Rioja;41;2018-1-2
+Guadalajara;22;2018-4-17
+Santa Cruz de Tenerife;48;2018-8-8
+Huelva;27;2018-2-22
+Las Palmas;-36;2018-7-23
+Toledo;-15;2018-3-25
+Lleida;9;2018-10-13
+Lugo;55;2018-10-6
+Pontevedra;-10;2018-7-19
+Barcelona;-40;2018-5-2
+Asturias;33;2018-6-20
+Valladolid;48;2018-4-2
+Cadiz;11;2018-10-17
+Tarragona;6;2018-8-7
+Teruel;-3;2018-4-13
+Alicante;23;2018-5-1
+Soria;31;2018-8-18
+Ciudad Real;-9;2018-10-4
+Zaragoza;-20;2018-8-24
+Salamanca;16;2018-3-20
+Albacete;-23;2018-9-15
+Girona;-5;2018-10-10
+Navarra;-35;2018-5-4
+Palencia;9;2018-1-24
+Madrid;15;2018-7-27
+Cuenca;-6;2018-11-3
+Badajoz;-27;2018-7-27
+Vizcaya;-33;2018-7-17
+Valencia;22;2018-3-24
+Leon;-16;2018-9-9
+Caceres;50;2018-8-10
+Ourense;59;2018-6-10
+Almeria;10;2018-4-7
+Burgos;-9;2018-8-14
+Guipuzcoa;27;2018-8-19
+Jaen;-26;2018-1-22
+Sevilla;24;2018-3-9
+Avila;2;2018-5-26
+La Rioja;-4;2018-5-7
+Guadalajara;50;2018-2-5
+Santa Cruz de Tenerife;-5;2018-4-15
+Huelva;-8;2018-4-5
+Las Palmas;2;2018-6-2
+Toledo;10;2018-6-26
+Lleida;-37;2018-5-25
+Lugo;33;2018-5-15
+Pontevedra;31;2018-2-23
+Barcelona;-20;2018-8-6
+Asturias;-25;2018-8-14
+Valladolid;28;2018-4-11
+Cadiz;9;2018-2-11
+Tarragona;-20;2018-11-26
+Teruel;5;2018-4-10
+Alicante;20;2018-9-10
+Soria;15;2018-3-19
+Ciudad Real;13;2018-8-5
+Zaragoza;37;2018-11-21
+Salamanca;-35;2018-9-12
+Albacete;12;2018-5-8
+Girona;11;2018-6-21
+Navarra;-11;2018-9-8
+Palencia;-2;2018-9-16
+Madrid;8;2018-8-3
+Cuenca;-33;2018-7-5
+Badajoz;-29;2018-2-3
+Vizcaya;13;2018-6-9
+Valencia;14;2018-12-16
+Leon;-37;2018-1-20
+Caceres;51;2018-6-22
+Ourense;-27;2018-1-27
+Almeria;60;2018-12-25
+Burgos;54;2018-5-20
+Guipuzcoa;-2;2018-9-20
+Jaen;45;2018-12-19
+Sevilla;-7;2018-5-4
+Avila;23;2018-11-18
+La Rioja;-20;2018-7-6
+Guadalajara;-23;2018-11-1
+Santa Cruz de Tenerife;-39;2018-2-8
+Huelva;9;2018-7-1
+Las Palmas;-12;2018-12-7
+Toledo;29;2018-11-2
+Lleida;-30;2018-8-7
+Lugo;2;2018-11-4
+Pontevedra;20;2018-1-11
+Barcelona;55;2018-6-20
+Asturias;44;2018-4-8
+Valladolid;7;2018-5-19
+Cadiz;15;2018-2-5
+Tarragona;1;2018-10-5
+Teruel;47;2018-9-10
+Alicante;47;2018-5-4
+Soria;-13;2018-4-26
+Ciudad Real;40;2018-11-23
+Zaragoza;8;2018-1-21
+Salamanca;6;2018-6-27
+Albacete;9;2018-3-16
+Girona;-34;2018-10-15
+Navarra;-6;2018-7-8
+Palencia;-10;2018-3-24
+Madrid;-20;2018-10-4
+Cuenca;-26;2018-9-13
+Badajoz;8;2018-6-6
+Vizcaya;14;2018-10-19
+Valencia;16;2018-11-18
+Leon;-6;2018-5-26
+Caceres;8;2018-1-12
+Ourense;20;2018-12-6
+Almeria;9;2018-12-12
+Burgos;53;2018-1-5
+Guipuzcoa;-32;2018-11-1
+Jaen;-32;2018-10-14
+Sevilla;53;2018-10-1
+Avila;-18;2018-3-12
+La Rioja;-1;2018-4-25
+Guadalajara;-33;2018-5-18
+Santa Cruz de Tenerife;-9;2018-7-1
+Huelva;-8;2018-10-19
+Las Palmas;-29;2018-8-3
+Toledo;19;2018-9-6
+Lleida;-24;2018-3-13
+Lugo;-16;2018-9-9
+Pontevedra;-13;2018-3-5
+Barcelona;-12;2018-11-19
+Asturias;-31;2018-7-18
+Valladolid;-32;2018-5-8
+Cadiz;17;2018-12-8
+Tarragona;-26;2018-6-2
+Teruel;-12;2018-11-15
+Alicante;16;2018-3-1
+Soria;7;2018-12-13
+Ciudad Real;22;2018-1-20
+Zaragoza;-24;2018-6-25
+Salamanca;1;2018-7-17
+Albacete;2;2018-4-6
+Girona;23;2018-6-4
+Navarra;5;2018-11-19
+Palencia;1;2018-2-9
+Madrid;26;2018-10-13
+Cuenca;24;2018-11-20
+Badajoz;-20;2018-4-23
+Vizcaya;-2;2018-11-4
+Valencia;-28;2018-7-25
+Leon;57;2018-9-16
+Caceres;-20;2018-7-9
+Ourense;8;2018-10-20
+Almeria;2;2018-9-17
+Burgos;42;2018-1-26
+Guipuzcoa;6;2018-10-27
+Jaen;19;2018-3-3
+Sevilla;33;2018-6-1
+Avila;41;2018-9-24
+La Rioja;35;2018-4-17
+Guadalajara;-37;2018-5-21
+Santa Cruz de Tenerife;43;2018-6-22
+Huelva;29;2018-9-25
+Las Palmas;0;2018-4-7
+Toledo;18;2018-9-17
+Lleida;-13;2018-12-7
+Lugo;28;2018-8-15
+Pontevedra;58;2018-4-24
+Barcelona;-3;2018-3-19
+Asturias;-22;2018-2-19
+Valladolid;56;2018-5-27
+Cadiz;29;2018-3-25
+Tarragona;28;2018-1-4
+Teruel;-9;2018-2-17
+Alicante;-18;2018-8-6
+Soria;1;2018-7-14
+Ciudad Real;44;2018-11-21
+Zaragoza;18;2018-5-4
+Salamanca;34;2018-11-24
+Albacete;-27;2018-12-1
+Girona;-26;2018-6-2
+Navarra;-16;2018-9-19
+Palencia;29;2018-4-27
+Madrid;43;2018-9-20
+Cuenca;34;2018-1-25
+Badajoz;-9;2018-7-25
+Vizcaya;27;2018-12-15
+Valencia;24;2018-10-10
+Leon;51;2018-12-4
+Caceres;26;2018-4-13
+Ourense;57;2018-11-9
+Almeria;44;2018-9-4
+Burgos;-25;2018-10-22
+Guipuzcoa;10;2018-9-18
+Jaen;44;2018-9-17
+Sevilla;-35;2018-2-9
+Avila;59;2018-7-15
+La Rioja;19;2018-6-24
+Guadalajara;-1;2018-8-10
+Santa Cruz de Tenerife;-24;2018-10-5
+Huelva;30;2018-7-6
+Las Palmas;36;2018-9-3
+Toledo;-5;2018-9-19
+Lleida;40;2018-1-26
+Lugo;45;2018-12-10
+Pontevedra;59;2018-3-25
+Barcelona;-12;2018-1-6
+Asturias;35;2018-1-22
+Valladolid;37;2018-3-26
+Cadiz;7;2018-5-3
+Tarragona;48;2018-7-20
+Teruel;55;2018-7-27
+Alicante;30;2018-7-15
+Soria;-30;2018-3-2
+Ciudad Real;40;2018-12-7
+Zaragoza;-31;2018-8-5
+Salamanca;-14;2018-7-27
+Albacete;-12;2018-3-19
+Girona;17;2018-2-10
+Navarra;-15;2018-2-14
+Palencia;57;2018-3-21
+Madrid;14;2018-9-1
+Cuenca;44;2018-3-24
+Badajoz;43;2018-3-22
+Vizcaya;-11;2018-6-13
+Valencia;29;2018-3-17
+Leon;18;2018-2-11
+Caceres;-33;2018-2-18
+Ourense;22;2018-2-14
+Almeria;-18;2018-5-26
+Burgos;58;2018-12-25
+Guipuzcoa;23;2018-8-5
+Jaen;7;2018-6-22
+Sevilla;-26;2018-7-20
+Avila;-37;2018-4-8
+La Rioja;49;2018-5-23
+Guadalajara;39;2018-3-21
+Santa Cruz de Tenerife;-8;2018-8-16
+Huelva;54;2018-10-11
+Las Palmas;53;2018-12-27
+Toledo;25;2018-3-18
+Lleida;-5;2018-7-4
+Lugo;-9;2018-11-9
+Pontevedra;-27;2018-8-10
+Barcelona;-2;2018-2-22
+Asturias;57;2018-5-15
+Valladolid;21;2018-11-16
+Cadiz;-10;2018-4-27
+Tarragona;7;2018-6-8
+Teruel;60;2018-3-27
+Alicante;-2;2018-6-22
+Soria;25;2018-7-6
+Ciudad Real;39;2018-11-6
+Zaragoza;11;2018-2-18
+Salamanca;8;2018-6-13
+Albacete;29;2018-4-9
+Girona;36;2018-10-26
+Navarra;42;2018-2-25
+Palencia;18;2018-10-11
+Madrid;-1;2018-2-22
+Cuenca;-21;2018-1-4
+Badajoz;16;2018-4-11
+Vizcaya;39;2018-5-26
+Valencia;-13;2018-2-10
+Leon;14;2018-10-12
+Caceres;45;2018-9-3
+Ourense;-28;2018-4-9
+Almeria;41;2018-3-3
+Burgos;-5;2018-5-23
+Guipuzcoa;-3;2018-12-3
+Jaen;42;2018-11-16
+Sevilla;48;2018-3-21
+Avila;22;2018-4-9
+La Rioja;1;2018-6-1
+Guadalajara;-23;2018-9-5
+Santa Cruz de Tenerife;-18;2018-3-24
+Huelva;33;2018-7-24
+Las Palmas;50;2018-2-4
+Toledo;51;2018-10-15
+Lleida;-19;2018-11-22
+Lugo;52;2018-8-8
+Pontevedra;56;2018-1-1
+Barcelona;-27;2018-1-26
+Asturias;-24;2018-9-24
+Valladolid;22;2018-5-12
+Cadiz;-28;2018-9-18
+Tarragona;-16;2018-6-17
+Teruel;-14;2018-2-7
+Alicante;-18;2018-2-27
+Soria;21;2018-6-19
+Ciudad Real;0;2018-8-20
+Zaragoza;-25;2018-10-24
+Salamanca;47;2018-4-20
+Albacete;32;2018-10-24
+Girona;43;2018-5-15
+Navarra;47;2018-10-25
+Palencia;36;2018-12-24
+Madrid;58;2018-12-15
+Cuenca;50;2018-12-7
+Badajoz;57;2018-8-17
+Vizcaya;7;2018-1-1
+Valencia;15;2018-11-25
+Leon;-34;2018-5-25
+Caceres;59;2018-10-14
+Ourense;-10;2018-9-27
+Almeria;-25;2018-12-17
+Burgos;-20;2018-11-6
+Guipuzcoa;24;2018-10-18
+Jaen;42;2018-10-22
+Sevilla;53;2018-1-14
+Avila;9;2018-3-17
+La Rioja;23;2018-11-22
+Guadalajara;31;2018-1-21
+Santa Cruz de Tenerife;-16;2018-12-12
+Huelva;-11;2018-10-19
+Las Palmas;47;2018-8-15
+Toledo;49;2018-8-4
+Lleida;33;2018-4-9
+Lugo;-10;2018-4-19
+Pontevedra;6;2018-1-6
+Barcelona;52;2018-12-3
+Asturias;15;2018-12-13
+Valladolid;13;2018-1-7
+Cadiz;34;2018-9-24
+Tarragona;39;2018-6-10
+Teruel;59;2018-2-12
+Alicante;37;2018-11-25
+Soria;-6;2018-7-11
+Ciudad Real;20;2018-12-8
+Zaragoza;55;2018-7-21
+Salamanca;51;2018-12-2
+Albacete;-11;2018-10-12
+Girona;31;2018-6-6
+Navarra;-26;2018-2-11
+Palencia;49;2018-2-3
+Madrid;53;2018-10-8
+Cuenca;6;2018-11-26
+Badajoz;-33;2018-12-11
+Vizcaya;31;2018-3-22
+Valencia;-38;2018-12-23
+Leon;-35;2018-11-26
+Caceres;33;2018-8-1
+Ourense;38;2018-1-27
+Almeria;-22;2018-2-14
+Burgos;35;2018-7-18
+Guipuzcoa;-25;2018-6-27
+Jaen;-4;2018-11-8
+Sevilla;44;2018-2-15
+Avila;22;2018-10-17
+La Rioja;57;2018-4-13
+Guadalajara;-9;2018-1-2
+Santa Cruz de Tenerife;-5;2018-9-4
+Huelva;-30;2018-11-22
+Las Palmas;-37;2018-3-4
+Toledo;55;2018-6-22
+Lleida;-5;2018-6-2
+Lugo;40;2018-2-20
+Pontevedra;-39;2018-6-21
+Barcelona;-21;2018-4-25
+Asturias;10;2018-1-12
+Valladolid;0;2018-2-23
+Cadiz;4;2018-1-23
+Tarragona;38;2018-2-9
+Teruel;-26;2018-1-18
+Alicante;-23;2018-4-9
+Soria;-25;2018-4-18
+Ciudad Real;-36;2018-1-16
+Zaragoza;-27;2018-11-6
+Salamanca;-35;2018-5-13
+Albacete;38;2018-7-11
+Girona;8;2018-9-18
+Navarra;-18;2018-5-24
+Palencia;-37;2018-7-26
+Madrid;44;2018-10-22
+Cuenca;-11;2018-6-10
+Badajoz;55;2018-4-21
+Vizcaya;-5;2018-2-7
+Valencia;41;2018-4-27
+Leon;22;2018-2-15
+Caceres;-12;2018-8-4
+Ourense;-15;2018-11-13
+Almeria;1;2018-2-24
+Burgos;2;2018-5-18
+Guipuzcoa;32;2018-1-16
+Jaen;-6;2018-1-16
+Sevilla;29;2018-1-6
+Avila;7;2018-4-16
+La Rioja;22;2018-6-19
+Guadalajara;-23;2018-7-2
+Santa Cruz de Tenerife;43;2018-8-15
+Huelva;18;2018-5-17
+Las Palmas;57;2018-7-19
+Toledo;45;2018-9-4
+Lleida;55;2018-11-12
+Lugo;0;2018-1-12
+Pontevedra;38;2018-4-20
+Barcelona;-28;2018-5-27
+Asturias;-3;2018-9-10
+Valladolid;31;2018-4-24
+Cadiz;-17;2018-12-6
+Tarragona;-27;2018-11-23
+Teruel;-27;2018-10-7
+Alicante;20;2018-2-14
+Soria;23;2018-4-27
+Ciudad Real;59;2018-4-21
+Zaragoza;-36;2018-8-8
+Salamanca;31;2018-2-26
+Albacete;-33;2018-2-8
+Girona;4;2018-6-26
+Navarra;-10;2018-2-8
+Palencia;49;2018-6-18
+Madrid;13;2018-12-3
+Cuenca;52;2018-1-16
+Badajoz;-13;2018-3-6
+Vizcaya;60;2018-10-12
+Valencia;56;2018-9-14
+Leon;5;2018-5-1
+Caceres;18;2018-7-2
+Ourense;-7;2018-2-3
+Almeria;-15;2018-8-21
+Burgos;18;2018-7-3
+Guipuzcoa;28;2018-9-9
+Jaen;48;2018-3-13
+Sevilla;55;2018-1-25
+Avila;-1;2018-4-8
+La Rioja;-4;2018-9-4
+Guadalajara;-21;2018-11-3
+Santa Cruz de Tenerife;44;2018-10-2
+Huelva;-11;2018-7-15
+Las Palmas;8;2018-11-21
+Toledo;8;2018-11-22
+Lleida;-6;2018-3-14
+Lugo;-37;2018-4-23
+Pontevedra;24;2018-3-24
+Barcelona;53;2018-10-26
+Asturias;26;2018-8-26
+Valladolid;46;2018-3-9
+Cadiz;14;2018-12-4
+Tarragona;1;2018-8-3
+Teruel;53;2018-5-19
+Alicante;-18;2018-8-27
+Soria;51;2018-8-19
+Ciudad Real;-34;2018-7-20
+Zaragoza;30;2018-5-12
+Salamanca;16;2018-1-25
+Albacete;35;2018-9-26
+Girona;13;2018-5-15
+Navarra;-27;2018-11-3
+Palencia;14;2018-3-5
+Madrid;-9;2018-1-12
+Cuenca;16;2018-6-25
+Badajoz;33;2018-10-17
+Vizcaya;-6;2018-10-7
+Valencia;-31;2018-1-6
+Leon;7;2018-2-22
+Caceres;33;2018-6-27
+Ourense;-17;2018-12-16
+Almeria;-6;2018-3-10
+Burgos;37;2018-12-19
+Guipuzcoa;58;2018-1-7
+Jaen;41;2018-7-2
+Sevilla;30;2018-6-18
+Avila;8;2018-12-14
+La Rioja;43;2018-6-4
+Guadalajara;24;2018-10-15
+Santa Cruz de Tenerife;27;2018-1-10
+Huelva;-34;2018-9-16
+Las Palmas;50;2018-1-26
+Toledo;36;2018-2-26
+Lleida;3;2018-11-9
+Lugo;-23;2018-7-14
+Pontevedra;-39;2018-9-17
+Barcelona;7;2018-7-16
+Asturias;6;2018-7-27
+Valladolid;22;2018-2-19
+Cadiz;59;2018-2-1
+Tarragona;41;2018-1-13
+Teruel;-1;2018-6-8
+Alicante;12;2018-9-21
+Soria;-21;2018-11-6
+Ciudad Real;58;2018-7-6
+Zaragoza;-37;2018-12-11
+Salamanca;-27;2018-1-11
+Albacete;-7;2018-6-1
+Girona;-24;2018-5-24
+Navarra;58;2018-12-27
+Palencia;3;2018-5-1
+Madrid;-16;2018-8-1
+Cuenca;-23;2018-11-18
+Badajoz;49;2018-7-25
+Vizcaya;41;2018-9-17
+Valencia;39;2018-5-9
+Leon;35;2018-10-17
+Caceres;-19;2018-5-6
+Ourense;39;2018-2-18
+Almeria;-32;2018-12-7
+Burgos;51;2018-4-22
+Guipuzcoa;38;2018-6-14
+Jaen;49;2018-1-6
+Sevilla;-37;2018-2-12
+Avila;-37;2018-5-8
+La Rioja;46;2018-3-25
+Guadalajara;7;2018-12-15
+Santa Cruz de Tenerife;23;2018-11-7
+Huelva;50;2018-10-27
+Las Palmas;14;2018-1-5
+Toledo;35;2018-12-17
+Lleida;26;2018-4-18
+Lugo;16;2018-4-9
+Pontevedra;58;2018-9-6
+Barcelona;56;2018-4-22
+Asturias;42;2018-10-27
+Valladolid;-37;2018-2-22
+Cadiz;-32;2018-6-14
+Tarragona;-29;2018-2-14
+Teruel;-19;2018-12-25
+Alicante;49;2018-7-15
+Soria;56;2018-5-20
+Ciudad Real;11;2018-8-11
+Zaragoza;5;2018-8-8
+Salamanca;24;2018-4-24
+Albacete;24;2018-1-7
+Girona;58;2018-6-14
+Navarra;-32;2018-7-22
+Palencia;-31;2018-6-23
+Madrid;-6;2018-5-2
+Cuenca;6;2018-4-22
+Badajoz;19;2018-1-16
+Vizcaya;-29;2018-2-4
+Valencia;19;2018-10-10
+Leon;-4;2018-2-20
+Caceres;-29;2018-4-25
+Ourense;41;2018-7-14
+Almeria;-6;2018-12-6
+Burgos;33;2018-5-9
+Guipuzcoa;60;2018-12-14
+Jaen;0;2018-8-20
+Sevilla;-22;2018-4-18
+Avila;-18;2018-3-5
+La Rioja;17;2018-6-1
+Guadalajara;4;2018-4-27
+Santa Cruz de Tenerife;37;2018-5-13
+Huelva;6;2018-11-25
+Las Palmas;-29;2018-12-24
+Toledo;39;2018-3-26
+Lleida;54;2018-5-27
+Lugo;12;2018-1-13
+Pontevedra;57;2018-1-23
+Barcelona;11;2018-9-11
+Asturias;11;2018-3-11
+Valladolid;-3;2018-7-25
+Cadiz;-4;2018-9-18
+Tarragona;-21;2018-3-5
+Teruel;19;2018-11-5
+Alicante;-14;2018-12-10
+Soria;1;2018-3-7
+Ciudad Real;25;2018-1-24
+Zaragoza;25;2018-12-5
+Salamanca;46;2018-5-8
+Albacete;-4;2018-12-1
+Girona;-40;2018-12-23
+Navarra;-30;2018-2-23
+Palencia;10;2018-10-11
+Madrid;-28;2018-7-3
+Cuenca;-24;2018-10-25
+Badajoz;21;2018-9-17
+Vizcaya;-27;2018-10-10
+Valencia;-37;2018-10-11
+Leon;49;2018-11-22
+Caceres;46;2018-8-17
+Ourense;-23;2018-1-22
+Almeria;35;2018-5-10
+Burgos;59;2018-1-12
+Guipuzcoa;17;2018-4-17
+Jaen;-5;2018-7-18
+Sevilla;20;2018-7-25
+Avila;48;2018-2-24
+La Rioja;22;2018-9-9
+Guadalajara;27;2018-10-9
+Santa Cruz de Tenerife;-16;2018-2-23
+Huelva;56;2018-6-10
+Las Palmas;8;2018-6-16
+Toledo;-14;2018-1-12
+Lleida;24;2018-10-16
+Lugo;-17;2018-7-25
+Pontevedra;3;2018-4-26
+Barcelona;14;2018-9-23
+Asturias;-7;2018-6-2
+Valladolid;22;2018-12-11
+Cadiz;54;2018-7-16
+Tarragona;37;2018-7-22
+Teruel;10;2018-12-19
+Alicante;-35;2018-10-27
+Soria;31;2018-7-1
+Ciudad Real;-31;2018-4-12
+Zaragoza;27;2018-9-10
+Salamanca;5;2018-9-24
+Albacete;-29;2018-11-19
+Girona;18;2018-4-11
+Navarra;52;2018-8-11
+Palencia;-26;2018-4-12
+Madrid;33;2018-5-27
+Cuenca;-7;2018-6-16
+Badajoz;55;2018-11-2
+Vizcaya;42;2018-10-8
+Valencia;8;2018-12-20
+Leon;16;2018-3-22
+Caceres;-10;2018-8-1
+Ourense;10;2018-9-2
+Almeria;60;2018-5-7
+Burgos;33;2018-9-15
+Guipuzcoa;39;2018-2-13
+Jaen;-9;2018-8-22
+Sevilla;17;2018-10-1
+Avila;48;2018-7-27
+La Rioja;-22;2018-4-25
+Guadalajara;-16;2018-5-15
+Santa Cruz de Tenerife;-5;2018-9-7
+Huelva;60;2018-11-8
+Las Palmas;-14;2018-6-1
+Toledo;-12;2018-7-22
+Lleida;59;2018-11-7
+Lugo;45;2018-2-26
+Pontevedra;24;2018-9-17
+Barcelona;25;2018-10-20
+Asturias;38;2018-4-7
+Valladolid;34;2018-9-18
+Cadiz;23;2018-8-15
+Tarragona;33;2018-9-23
+Teruel;32;2018-1-24
+Alicante;5;2018-4-22
+Soria;45;2018-3-11
+Ciudad Real;59;2018-10-12
+Zaragoza;17;2018-2-3
+Salamanca;12;2018-8-25
+Albacete;29;2018-8-21
+Girona;3;2018-8-7
+Navarra;40;2018-6-3
+Palencia;-3;2018-7-1
+Madrid;57;2018-7-24
+Cuenca;-7;2018-12-6
+Badajoz;-16;2018-8-25
+Vizcaya;23;2018-9-15
+Valencia;1;2018-1-12
+Leon;41;2018-12-27
+Caceres;42;2018-2-17
+Ourense;-18;2018-7-27
+Almeria;34;2018-2-19
+Burgos;56;2018-10-9
+Guipuzcoa;-9;2018-2-23
+Jaen;-30;2018-5-3
+Sevilla;-12;2018-4-13
+Avila;8;2018-7-20
+La Rioja;57;2018-6-7
+Guadalajara;29;2018-12-22
+Santa Cruz de Tenerife;55;2018-6-25
+Huelva;5;2018-9-13
+Las Palmas;3;2018-11-21
+Toledo;51;2018-4-5
+Lleida;-6;2018-11-12
+Lugo;0;2018-3-7
+Pontevedra;6;2018-3-18
+Barcelona;-39;2018-11-27
+Asturias;34;2018-8-4
+Valladolid;-2;2018-4-21
+Cadiz;-25;2018-7-16
+Tarragona;8;2018-9-9
+Teruel;46;2018-4-27
+Alicante;49;2018-6-20
+Soria;1;2018-6-11
+Ciudad Real;25;2018-3-25
+Zaragoza;50;2018-4-18
+Salamanca;54;2018-5-14
+Albacete;44;2018-9-10
+Girona;52;2018-4-3
+Navarra;-11;2018-9-18
+Palencia;-27;2018-11-10
+Madrid;4;2018-7-26
+Cuenca;34;2018-5-6
+Badajoz;49;2018-4-17
+Vizcaya;-11;2018-5-6
+Valencia;27;2018-9-14
+Leon;56;2018-6-21
+Caceres;12;2018-7-27
+Ourense;41;2018-6-19
+Almeria;28;2018-2-21
+Burgos;15;2018-5-5
+Guipuzcoa;43;2018-5-2
+Jaen;-26;2018-7-17
+Sevilla;23;2018-11-6
+Avila;-9;2018-2-12
