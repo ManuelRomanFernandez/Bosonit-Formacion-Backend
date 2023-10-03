@@ -1,0 +1,10 @@
+{
+  "name": "Manuel",
+  "surname": "Roman",
+  "age": 27,
+  "language": [
+    "Python",
+    "Kotlin",
+    "Swift"
+  ]
+}

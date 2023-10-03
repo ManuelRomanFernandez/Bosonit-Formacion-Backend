@@ -1,0 +1,6 @@
+Mi nombre es Manuel
+Mi apellido es Roman
+27 anos
+Python
+Me gusta Kotlin
+Y Swift
