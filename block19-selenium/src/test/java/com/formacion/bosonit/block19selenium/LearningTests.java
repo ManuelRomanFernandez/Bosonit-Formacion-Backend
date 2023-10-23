@@ -1,5 +1,6 @@
 package com.formacion.bosonit.block19selenium;
 
+import com.formacion.bosonit.block19selenium.listeners.MyListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -167,7 +168,7 @@ public class LearningTests {
     }
 
     @Test
-    void popupTest() throws InterruptedException, AWTException {
+    void popupAndRobotTest() throws InterruptedException, AWTException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.get("https://demoqa.com/");
 
@@ -191,7 +192,7 @@ public class LearningTests {
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
 
     @Test
@@ -202,12 +203,12 @@ public class LearningTests {
         webDriver.get("https://www.saucedemo.com/");
 
         webDriver.findElement(By.name("user-name")).sendKeys("standard_user");
-        webDriver.findElement(By.name(("password"))).sendKeys("secret_sauce");
+        webDriver.findElement(By.name("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
     }
 
     @Test
-    void actionClassTest() throws InterruptedException {
+    void actionClassDragAndDropTest() throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions builder = new Actions(driver);
         driver.get("https://demoqa.com/");
@@ -215,8 +216,74 @@ public class LearningTests {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
 
-        builder.moveToElement(driver.findElement(By.xpath("//div[@id='app']//div[5]"))).click();
+        js.executeScript("window.scrollBy(0,250)", "");
 
-        Thread.sleep(5000);
+        builder.moveToElement(driver.findElement(By.xpath("//div[@id='app']//div[5]"))).click().build().perform();
+
+        js.executeScript("window.scrollBy(0,350)", "");
+
+        Thread.sleep(2000);
+        
+        builder.moveToElement(driver.findElement(By.xpath("(//li[@id='item-0'])[5]"))).click().build().perform();
+
+        Thread.sleep(2000);
+
+        js.executeScript("window.scrollBy(0,150)", "");
+
+        builder.clickAndHold(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]")))
+                .moveToElement(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[6]")))
+                .release(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[6]")))
+                .build().perform();
+
+        Thread.sleep(1000);
+
+        builder.clickAndHold(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]")))
+                .moveToElement(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[3]")))
+                .release(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[3]")))
+                .build().perform();
+
+        Thread.sleep(1000);
+
+        builder.clickAndHold(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[6]")))
+                .moveToElement(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]")))
+                .release(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]")))
+                .build().perform();
+
+        Thread.sleep(2000);
+
+        builder.dragAndDrop(
+                driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[4]")),
+                driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]"))
+        ).build().perform();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    void actionClassSendKeysTest() throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Actions builder = new Actions(driver);
+        driver.get("https://demoqa.com/");
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().window().maximize();
+
+        js.executeScript("window.scrollBy(0,250)", "");
+
+        builder.moveToElement(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]"))).click().build().perform();
+
+        Thread.sleep(2000);
+
+        js.executeScript("window.scrollBy(0,150)", "");
+
+        builder.moveToElement(driver.findElement(By.xpath("//div[@class='element-list collapse show']//li[@id='item-0']"))).click().build().perform();
+
+        Thread.sleep(2000);
+
+        js.executeScript("window.scrollBy(0,150)", "");
+
+        builder.moveToElement(driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/form[1]/div[1]/div[2]/input[1]"))).click().sendKeys("Manuel").build().perform();
+
+        Thread.sleep(3000);
     }
 }
